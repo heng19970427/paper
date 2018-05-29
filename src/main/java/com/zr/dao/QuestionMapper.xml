@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zr.dao.QuestionMapper">
+    <resultMap id="selectQuesCate" type="QuesCate">
+        <result property="q_id" column="q_id"/>
+        <result property="qcName" column="qcName"/>
+        <result property="course.c_id" column="c_id"/>
+        <result property="course.courseName" column="courseName"/>
+        <result property="probCate.p_id" column="p_id"/>
+        <result property="probCate.category" column="category"/>
+    </resultMap>
+    <sql id="query">
+        <where>
+            <if test="quesName!=null and quesName!=''">
+                AND title LIKE '%${quesName}%'
+            </if>
+            <if test="quesSub!=null and quesSub!=''">
+                AND c_id = #{quesSub}
+            </if>
+            <if test="probQues!=null and probQues!=''">
+                AND p_id = #{probQues}
+            </if>
+            <if test="category!=null and category!=''">
+                AND qc_id = #{category}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询所有题-->
+    <select id="queryAllQuestion" parameterType="queryVo" resultType="question">
+        SELECT * from
+        (SELECT b.c_id,b.p_id,b.qc_id,b.b_id id,b.title,b.difficultyLevel,b.answer,b.description from bigques b
+        union
+        SELECT f.c_id,f.p_id,f.qc_id,f.f_id,f.title,f.difficultyLevel,f.answer,f.description from fillblankques f
+        union
+        SELECT s.c_id,s.p_id,s.qc_id,s.s_id,s.title,s.difficultyLevel,s.answer,s.description from selectques s
+        UNION
+        SELECT j.c_id,j.p_id,j.qc_id,j.j_id,j.title,j.difficultyLevel,j.answer,j.description from judgeques j)
+        as question
+        <include refid="query"/>
+            limit #{start},#{rows}
+    </select>
+
+    <resultMap id="querySelect" type="SelectQues">
+        <result property="s_id" column="s_id"/>
+        <result property="title" column="title"/>
+        <result property="difficultyLevel" column="difficultyLevel"/>
+        <result property="answer" column="answer"/>
+        <result property="selectedNum" column="selectedNum"/>
+        <result property="description" column="description"/>
+        <association property="course" javaType="Course">
+            <id property="c_id" column="c_id"/>
+            <result property="courseName" column="courseName"/>
+        </association>
+        <association property="knowledge" javaType="Knowledge">
+            <id property="k_id" column="k_id"/>
+            <result property="courseName" column="courseName"/>
+            <result property="knowledgeName" column="knowledgeName"/>
+        </association>
+        <association property="probCate" javaType="ProbCate">
+            <id property="p_id" column="p_id"/>
+            <result property="category" column="category"/>
+        </association>
+        <association property="quesCate" javaType="QuesCate">
+            <id property="q_id" column="q_id"/>
+            <result property="qcName" column="qcName"/>
+        </association>
+    </resultMap>
+    <!-- 查询一道选择题-->
+    <select id="querySelectQues" parameterType="string" resultMap="querySelect">
+        SELECT s.s_id,c.c_id,c.courseName,k.k_id,k.knowledgeName,
+        p.p_id,p.category,q.q_id,q.qcName,s.title,s.difficultyLevel,
+        s.answer,s.selectedNum,s.description
+        FROM selectques s LEFT JOIN course c
+        on
+        s.c_id=c.c_id
+        LEFT JOIN knowledge k
+        on
+        s.k_id=k.k_id
+        LEFT JOIN probcate p
+        on
+        s.p_id=p.p_id
+        LEFT JOIN quescate q
+        on
+        s.qc_id=q.q_id
+        WHERE
+        s.s_id=#{v}
+    </select>
+
+    <resultMap id="queryJudge" type="JudgeQues">
+        <result property="j_id" column="j_id"/>
+        <result property="title" column="title"/>
+        <result property="difficultyLevel" column="difficultyLevel"/>
+        <result property="answer" column="answer"/>
+        <result property="selectedNum" column="selectedNum"/>
+        <result property="description" column="description"/>
+        <association property="course" javaType="Course">
+            <id property="c_id" column="c_id"/>
+            <result property="courseName" column="courseName"/>
+        </association>
+        <association property="knowledge" javaType="Knowledge">
+            <id property="k_id" column="k_id"/>
+            <result property="courseName" column="courseName"/>
+            <result property="knowledgeName" column="knowledgeName"/>
+        </association>
+        <association property="probCate" javaType="ProbCate">
+            <id property="p_id" column="p_id"/>
+            <result property="category" column="category"/>
+        </association>
+        <association property="quesCate" javaType="QuesCate">
+            <id property="q_id" column="q_id"/>
+            <result property="qcName" column="qcName"/>
+        </association>
+    </resultMap>
+    <!-- 查询一道判断题-->
+    <select id="queryJudgeQues" parameterType="string" resultMap="queryJudge">
+       SELECT j.j_id,c.c_id,c.courseName,k.k_id,k.knowledgeName,
+        p.p_id,p.category,q.q_id,q.qcName,j.title,j.difficultyLevel,
+        j.answer,j.selectedNum,j.description
+        FROM judgeques j LEFT JOIN course c
+        on
+        j.c_id=c.c_id
+        LEFT JOIN knowledge k
+        on
+        j.k_id=k.k_id
+        LEFT JOIN probcate p
+        on
+        j.p_id=p.p_id
+        LEFT JOIN quescate q
+        on
+        j.qc_id=q.q_id
+        WHERE
+        j.j_id=#{v}
+    </select>
+
+    <resultMap id="queryFillBlank" type="FillBlankQues">
+        <result property="f_id" column="f_id"/>
+        <result property="title" column="title"/>
+        <result property="difficultyLevel" column="difficultyLevel"/>
+        <result property="answer" column="answer"/>
+        <result property="blankNum" column="blankNum"/>
+        <result property="selectedNum" column="selectedNum"/>
+        <result property="description" column="description"/>
+        <association property="course" javaType="Course">
+            <id property="c_id" column="c_id"/>
+            <result property="courseName" column="courseName"/>
+        </association>
+        <association property="knowledge" javaType="Knowledge">
+            <id property="k_id" column="k_id"/>
+            <result property="courseName" column="courseName"/>
+            <result property="knowledgeName" column="knowledgeName"/>
+        </association>
+        <association property="probCate" javaType="ProbCate">
+            <id property="p_id" column="p_id"/>
+            <result property="category" column="category"/>
+        </association>
+        <association property="quesCate" javaType="QuesCate">
+            <id property="q_id" column="q_id"/>
+            <result property="qcName" column="qcName"/>
+        </association>
+    </resultMap>
+    <!-- 查询一道填空题-->
+    <select id="queryFillBlankQues" parameterType="string" resultMap="queryFillBlank">
+        SELECT f.f_id,c.c_id,c.courseName,k.k_id,k.knowledgeName,
+        p.p_id,p.category,q.q_id,q.qcName,f.title,f.difficultyLevel,
+        f.answer,f.selectedNum,f.description
+        FROM fillblankques f LEFT JOIN course c
+        on
+        f.c_id=c.c_id
+        LEFT JOIN knowledge k
+        on
+        f.k_id=k.k_id
+        LEFT JOIN probcate p
+        on
+        f.p_id=p.p_id
+        LEFT JOIN quescate q
+        on
+        f.qc_id=q.q_id
+        WHERE
+        f.f_id=#{v}
+    </select>
+
+    <resultMap id="queryBig" type="BigQues">
+        <result property="b_id" column="b_id"/>
+        <result property="title" column="title"/>
+        <result property="difficultyLevel" column="difficultyLevel"/>
+        <result property="answer" column="answer"/>
+        <result property="selectedNum" column="selectedNum"/>
+        <result property="description" column="description"/>
+        <association property="course" javaType="Course">
+            <id property="c_id" column="c_id"/>
+            <result property="courseName" column="courseName"/>
+        </association>
+        <association property="knowledge" javaType="Knowledge">
+            <id property="k_id" column="k_id"/>
+            <result property="courseName" column="courseName"/>
+            <result property="knowledgeName" column="knowledgeName"/>
+        </association>
+        <association property="probCate" javaType="ProbCate">
+            <id property="p_id" column="p_id"/>
+            <result property="category" column="category"/>
+        </association>
+        <association property="quesCate" javaType="QuesCate">
+            <id property="q_id" column="q_id"/>
+            <result property="qcName" column="qcName"/>
+        </association>
+    </resultMap>
+    <!-- 查询一道大题-->
+    <select id="queryBigQues" parameterType="string" resultMap="queryBig">
+       SELECT b.b_id,c.c_id,c.courseName,k.k_id,k.knowledgeName,
+        p.p_id,p.category,q.q_id,q.qcName,b.title,b.difficultyLevel,
+        b.answer,b.selectedNum,b.description
+        FROM bigques b LEFT JOIN course c
+        on
+        b.c_id=c.c_id
+        LEFT JOIN knowledge k
+        on
+        b.k_id=k.k_id
+        LEFT JOIN probcate p
+        on
+        b.p_id=p.p_id
+        LEFT JOIN quescate q
+        on
+        b.qc_id=q.q_id
+        WHERE
+        b.b_id=#{v}
+    </select>
+
+    <!-- 查询所有科目及其题目类型 -->
+    <select id="queryQuesCate" resultMap="selectQuesCate">
+        select q.q_id,
+        c.c_id,
+        c.courseName,
+        p.p_id,
+        p.category,q.qcName
+        from
+        quescate q,
+        course c,
+        probcate p
+        WHERE
+        q.c_id=c.c_id
+        AND
+        q.p_id=p.p_id
+    </select>
+
+    <!-- 统计所有题的记录数 -->
+    <select id="queryAllQuestionRows" resultType="int">
+        select COUNT(*) from
+        (SELECT b.c_id,b.p_id,b.qc_id,b.title from bigques b
+        union all
+        SELECT f.c_id,f.p_id,f.qc_id,f.title from fillblankques f
+        union all
+        SELECT s.c_id,s.p_id,s.qc_id,s.title from selectques s
+        UNION all
+        SELECT j.c_id,j.p_id,j.qc_id,j.title from judgeques j) as total
+        <include refid="query"/>
+    </select>
+
+    <!-- 跟新一道选择题-->
+    <update id="updateSelectQues" parameterType="QuesQuery">
+    UPDATE selectques
+    <set>
+        <if test="course!=null and course.c_id!=''">
+            c_id=#{course.c_id},
+        </if>
+        <if test="knowledge.k_id!=null and knowledge.k_id!=''">
+            k_id=#{knowledge.k_id},
+        </if>
+        <if test="probCate.p_id!=null and probCate.p_id!=''">
+            p_id=#{probCate.p_id},
+        </if>
+        <if test="quesCate.q_id!=null and quesCate.q_id!=''">
+            qc_id=#{quesCate.q_id},
+        </if>
+        <if test="title!=null and title!=''">
+            title=#{title},
+        </if>
+        <if test="difficultyLevel!=null and difficultyLevel!=''">
+            difficultyLevel=#{difficultyLevel},
+        </if>
+        <if test="answer!=null and answer!=''">
+            answer=#{answer},
+        </if>
+        <if test="selectedNum!=null and selectedNum!=''">
+            selectedNum=#{selectedNum},
+        </if>
+        <if test="description!=null and description!=''">
+            description=#{description}
+        </if>
+    </set>
+    <where>
+        s_id=#{id}
+    </where>
+    </update>
+
+    <!-- 跟新一道填空题-->
+    <update id="updateFillBlankQues" parameterType="QuesQuery">
+        UPDATE fillblankques
+        <set>
+            <if test="course!=null and course.c_id!=''">
+                c_id=#{course.c_id},
+            </if>
+            <if test="knowledge.k_id!=null and knowledge.k_id!=''">
+                k_id=#{knowledge.k_id},
+            </if>
+            <if test="probCate.p_id!=null and probCate.p_id!=''">
+                p_id=#{probCate.p_id},
+            </if>
+            <if test="quesCate.q_id!=null and quesCate.q_id!=''">
+                qc_id=#{quesCate.q_id},
+            </if>
+            <if test="title!=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="difficultyLevel!=null and difficultyLevel!=''">
+                difficultyLevel=#{difficultyLevel},
+            </if>
+            <if test="answer!=null and answer!=''">
+                answer=#{answer},
+            </if>
+            <if test="selectedNum!=null and selectedNum!=''">
+                selectedNum=#{selectedNum},
+            </if>
+            <if test="blankNum!=null and blankNum!=''">
+                blankNum=#{blankNum},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description}
+            </if>
+        </set>
+        <where>
+            f_id=#{id}
+        </where>
+    </update>
+    <!-- 跟新一道判断题-->
+    <update id="updateJudgeQues" parameterType="QuesQuery">
+        UPDATE judgeques
+        <set>
+            <if test="course!=null and course.c_id!=''">
+                c_id=#{course.c_id},
+            </if>
+            <if test="knowledge.k_id!=null and knowledge.k_id!=''">
+                k_id=#{knowledge.k_id},
+            </if>
+            <if test="probCate.p_id!=null and probCate.p_id!=''">
+                p_id=#{probCate.p_id},
+            </if>
+            <if test="quesCate.q_id!=null and quesCate.q_id!=''">
+                qc_id=#{quesCate.q_id},
+            </if>
+            <if test="title!=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="difficultyLevel!=null and difficultyLevel!=''">
+                difficultyLevel=#{difficultyLevel},
+            </if>
+            <if test="answer!=null and answer!=''">
+                answer=#{answer},
+            </if>
+            <if test="selectedNum!=null and selectedNum!=''">
+                selectedNum=#{selectedNum},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description}
+            </if>
+        </set>
+        <where>
+            j_id=#{id}
+        </where>
+    </update>
+    <!-- 跟新一道大题-->
+    <update id="updateBigQues" parameterType="QuesQuery">
+        UPDATE bigques
+        <set>
+            <if test="course!=null and course.c_id!=''">
+                c_id=#{course.c_id},
+            </if>
+            <if test="knowledge.k_id!=null and knowledge.k_id!=''">
+                k_id=#{knowledge.k_id},
+            </if>
+            <if test="probCate.p_id!=null and probCate.p_id!=''">
+                p_id=#{probCate.p_id},
+            </if>
+            <if test="quesCate.q_id!=null and quesCate.q_id!=''">
+                qc_id=#{quesCate.q_id},
+            </if>
+            <if test="title!=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="difficultyLevel!=null and difficultyLevel!=''">
+                difficultyLevel=#{difficultyLevel},
+            </if>
+            <if test="answer!=null and answer!=''">
+                answer=#{answer},
+            </if>
+            <if test="selectedNum!=null and selectedNum!=''">
+                selectedNum=#{selectedNum},
+            </if>
+            <if test="description!=null and description!=''">
+                description=#{description}
+            </if>
+        </set>
+        <where>
+            b_id=#{id}
+        </where>
+    </update>
+    <!-- 删除一道题-->
+    <delete id="delQues">
+        DELETE from ${table} where ${table_id}=#{id}
+    </delete>
+
+    <!-- 插入判断题-->
+    <insert id="insertJudgeQues" parameterType="QuesQuery">
+      INSERT into judgeques VALUES(null,#{knowledge.k_id},#{course.c_id},DEFAULT,#{quesCate.q_id},#{title},#{difficultyLevel},#{answer},DEFAULT,#{description})
+    </insert>
+
+    <!-- 插入选择题-->
+    <insert id="insertSelectQues" parameterType="QuesQuery">
+      INSERT into selectques VALUES(null,#{knowledge.k_id},#{course.c_id},DEFAULT,#{quesCate.q_id},#{title},#{option},#{difficultyLevel},#{answer},DEFAULT,#{description})
+    </insert>
+
+    <!-- 插入填空题-->
+    <insert id="insertFillBlankQues" parameterType="QuesQuery">
+      INSERT into fillblankques VALUES(null,#{knowledge.k_id},#{course.c_id},DEFAULT,#{quesCate.q_id},#{title},#{difficultyLevel},#{answer},DEFAULT,#{blankNum},#{description})
+    </insert>
+
+    <!-- 插入大题-->
+    <insert id="insertBigQues" parameterType="QuesQuery">
+      INSERT into bigques VALUES(null,#{knowledge.k_id},#{course.c_id},DEFAULT,#{quesCate.q_id},#{title},#{difficultyLevel},#{answer},DEFAULT,#{description})
+    </insert>
+</mapper>

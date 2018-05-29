@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zr.dao.BaseMapper">
+
+    <resultMap id="QuesCateByQId" type="QuesCate">
+        <result property="q_id" column="q_id"/>
+        <result property="qcName" column="qcName"/>
+        <result property="blankNum" column="blankNum"/>
+        <association property="probCate" javaType="ProbCate">
+            <id property="p_id" column="p_id"/>
+            <result property="category" column="category"/>
+        </association>
+        <association property="course" javaType="Course">
+            <id property="c_id" column="c_id"/>
+            <result property="courseName" column="courseName"/>
+        </association>
+    </resultMap>
+
+    <sql id="query">
+        <where>
+            <if test="quesSub!=null and quesSub!=''">
+                AND c_id = #{quesSub}
+            </if>
+            <if test="probQues!=null and probQues!=''">
+                AND p_id = #{probQues}
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryAllCourse" resultType="course">
+        SELECT * from course
+    </select>
+
+    <select id="queryAllProbCate" resultType="probcate">
+        SELECT * from probcate
+    </select>
+
+    <select id="queryKnowledgeList" parameterType="string" resultType="knowledge">
+        SELECT * from knowledge
+        <where>
+          c_id=#{v}
+        </where>
+    </select>
+
+
+
+    <select id="queryQuesCate" resultType="quescate" parameterType="QueryVo">
+      SELECT * from quescate
+      <include refid="query"/>
+    </select>
+
+    <select id="queryQuesCateByCId" resultMap="QuesCateByQId" parameterType="string">
+        SELECT * from quescate q
+        LEFT JOIN probcate p
+        on
+        q.p_id=p.p_id
+        <where>
+            q.c_id=#{v}
+        </where>
+    </select>
+
+
+
+    <select id="queryQuesCateByQId" resultMap="QuesCateByQId" parameterType="string">
+        SELECT * from quescate q
+        <where>
+            q.q_id=#{v}
+        </where>
+    </select>
+
+    <select id="queryKnowledge" resultType="Knowledge" parameterType="string">
+        SELECT * FROM knowledge
+        <where>
+            knowledgeName=#{v}
+        </where>
+    </select>
+</mapper>
