@@ -19,14 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/question")
+@RequestMapping("question")
 public class QuesController {
     @Autowired
     private QuestionService questionService;
     @Autowired
     private BaseService baseService;
     //.后面的可以不写
-    @RequestMapping("/list")
+    @RequestMapping("list")
     public String showPage(QueryVo qv,Model model){
         //显示所有查询条件
         List<Course> courseList=baseService.queryAllCourse();
@@ -115,7 +115,7 @@ public class QuesController {
     }
 
     @RequestMapping("excelUpload")
-    public String excelUpload(String quesSub,MultipartFile excel, HttpServletRequest request,Model model) throws Exception {
+    public String excelUpload(String quesSub,MultipartFile excel, HttpServletRequest request,Model model){
         if(excel==null){
             return null;
         }

@@ -17,15 +17,15 @@
         <!-- DataTables CSS -->
         <link href="<%=basePath%>css/dataTables.bootstrap.css" rel="stylesheet">
     </head>
-    <body class=text-muted">
+<body class=text-muted">
+    <%--show msg--%>
+    <jsp:include page="showMsg.jsp"/>
+    <%--show msg--%>
     <div class="container">
         <div class="form-group" style="padding-top: 150px">
             <p class="text-primary" style="text-align: center;font-size: 25px">智能试卷</p>
-            <c:if test="${!empty error}">
-                <p class="help-block"><small><c:out value="${error}" /></small></p>
-            </c:if>
         </div>
-        <form action="<%=basePath%>user/loginCheck.do" id="loginForm" method="post">
+        <form action="<%=basePath%>user/login" id="loginForm" method="post">
             <div class="jumbotron" style="width: 60%;margin: 0 auto">
                 <div class="form-group">
                     <label for="username">帐 号</label>
@@ -44,17 +44,17 @@
     </div>
 
 
-        <!-- jQuery -->
-        <script src="<%=basePath%>js/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="<%=basePath%>js/jquery.min.js"></script>
 
-        <!-- Bootstrap Core JavaScript -->
-        <script src="<%=basePath%>js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<%=basePath%>js/bootstrap.min.js"></script>
 
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="<%=basePath%>js/metisMenu.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="<%=basePath%>js/metisMenu.min.js"></script>
 
-        <!-- DataTables JavaScript -->
-        <script src="<%=basePath%>js/jquery.dataTables.min.js"></script>
-        <script src="<%=basePath%>js/dataTables.bootstrap.min.js"></script>
-    </body>
+    <!-- DataTables JavaScript -->
+    <script src="<%=basePath%>js/jquery.dataTables.min.js"></script>
+    <script src="<%=basePath%>js/dataTables.bootstrap.min.js"></script>
+</body>
 </html>

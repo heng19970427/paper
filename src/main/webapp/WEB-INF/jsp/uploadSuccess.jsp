@@ -9,9 +9,16 @@
 <html>
 <head>
     <title>Title</title>
-    <h2>文件上传成功！</h2>
 </head>
 <body>
-
+<%--header start--%>
+<jsp:include page="header.jsp"/>
+<%--header end--%>
+<div class="body">
+    <%--show msg--%>
+    <jsp:include page="showMsg.jsp"/>
+    <%--show msg--%>
+    <h2>文件上传成功！</h2>
+</div>
 </body>
 </html>

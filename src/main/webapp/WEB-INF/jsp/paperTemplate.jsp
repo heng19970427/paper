@@ -11,12 +11,11 @@
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
+    <meta content="text/html;charset=utf8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>题库管理</title>
 
     <!-- Bootstrap Core CSS -->
@@ -48,46 +47,15 @@
 
 <body>
 
-<div id="wrapper">
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation"
-         style="margin-bottom: 0">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">小智试卷 V1.0</a>
-        </div>
-        <!-- /.navbar-header -->
-
-        <ul class="nav navbar-top-links navbar-right" style="padding-top: 5px">
-            <li>朱老师</li>
-            <li><a href="#">注销</a></li>
-        </ul>
-        <!-- /.navbar-top-links -->
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-
-                <ul class="nav" id="side-menu">
-                    <li><a href="#"><i
-                            class="fa fa-edit fa-fw"></i> 题库管理</a></li>
-                    <li><a href="#" class="active"><i
-                            class="fa fa-dashboard fa-fw "></i> 模板管理</a></li>
-                    <li><a href="#"><i
-                            class="fa glyphicon glyphicon-unchecked fa-fw"></i> 试卷仓库</a></li>
-                </ul>
-            </div>
-            <!-- /.sidebar-collapse -->
-        </div>
-    </nav>
-        <!-- /.navbar-static-side -->
+<%--header start--%>
+<jsp:include page="header.jsp"/>
+<%--header end--%>
+<div id="wrapper" class="body">
+    <%--show msg--%>
+    <jsp:include page="showMsg.jsp"/>
+    <%--show msg--%>
         <div id="page-wrapper">
-            <div>
-                <h4><p class="text-center">试卷模板</p></h4>
-            </div>
+            <h1 class="page-header" style="text-align: center">模板管理</h1>
             <form class="form-horizontal">
                 <div class="row">
                     <div class="form-group">

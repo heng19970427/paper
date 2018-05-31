@@ -10,6 +10,22 @@
     <!--注解驱动-->
     <mvc:annotation-driven/>
 
+    <!--默认servlet 处理静态资源响应-->
+    <mvc:default-servlet-handler/>
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <!--登录状态检查拦截-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/user/login"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/font/**"/>
+            <mvc:exclude-mapping path="/favicon.ico"/>
+            <bean class="com.zr.interceptor.AuthInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <!--配置视图解析器-->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>

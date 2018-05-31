@@ -48,42 +48,13 @@
 
 <body>
 
-<div id="wrapper">
-	<!-- Navigation -->
-	<nav class="navbar navbar-default navbar-static-top" role="navigation"
-		 style="margin-bottom: 0">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">小智试卷 V1.0</a>
-		</div>
-		<!-- /.navbar-header -->
-
-		<ul class="nav navbar-top-links navbar-right" style="padding-top: 5px">
-			<li>朱老师</li>
-			<li><a href="<%=basePath%>user/logout.do">注销</a></li>
-		</ul>
-		<!-- /.navbar-top-links -->
-		<div class="navbar-default sidebar" role="navigation">
-			<div class="sidebar-nav navbar-collapse">
-
-				<ul class="nav" id="side-menu">
-					<li><a href="#" class="active"><i
-							class="fa fa-edit fa-fw"></i> 题库管理</a></li>
-					<li><a href="<%=basePath%>paperTemplate/showTemp.do"><i
-							class="fa fa-dashboard fa-fw"></i> 模板管理</a></li>
-					<li><a href="#"><i
-							class="fa glyphicon glyphicon-unchecked fa-fw"></i> 试卷仓库</a></li>
-				</ul>
-			</div>
-			<!-- /.sidebar-collapse -->
-		</div>
-		<!-- /.navbar-static-side --> </nav>
-
+<%--header start--%>
+<jsp:include page="header.jsp"/>
+<%--header end--%>
+<div class="body" id="wrapper">
+    <%--show msg--%>
+    <jsp:include page="showMsg.jsp"/>
+    <%--show msg--%>
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
@@ -169,7 +140,7 @@
 			<!-- /单题添加 -->
 			<!-- 批量导入 -->
 			<div role="tabpanel" class="tab-pane" id="addMany">批量导入
-				<form action="/paper/question/tempDownload.do" id="addManyForm" method="post">
+				<form action="/paper/question/tempDownload" id="addManyForm" method="post">
 					<div class="form-group" style="padding-left: 10px">
 						<label for="quesSub">试题科目</label>
 						<select	class="form-control" id="addMany_quesSub" placeholder="试题科目" name="quesSub">
@@ -191,7 +162,7 @@
 					</div>
 
 				</form>
-				<form action="/paper/question/excelUpload.do" id="fileUpload" enctype="multipart/form-data" method="post">
+				<form action="/paper/question/excelUpload" id="fileUpload" enctype="multipart/form-data" method="post">
                     <div class="form-group" style="padding-left: 10px">
                         <label for="excelUpload_quesSub">试题科目</label>
                         <select	class="form-control" id="excelUpload_quesSub" placeholder="试题科目" name="quesSub">
@@ -216,7 +187,7 @@
 			<div role="tabpanel" class="panel panel-default tab-pane active" id="quesManage">
 				<h1 class="page-header" style="text-align: center">题库管理</h1>
 				<div class="panel-body">
-					<form class="form-inline" action="${pageContext.request.contextPath }/question/list.do" method="get">
+					<form class="form-inline" action="${pageContext.request.contextPath }/question/list" method="get">
 						<div class="form-group" style="padding-left: 10px">
 							<label for="quesName">试题名称</label>
 							<input type="text" class="form-control" id="quesName" value="${quesName}" name="quesName">
@@ -286,7 +257,7 @@
 								</tbody>
 							</table>
 							<div class="col-md-12 text-right">
-								<zr:page url="${pageContext.request.contextPath }/question/list.do" />
+								<zr:page url="${pageContext.request.contextPath }/question/list" />
 							</div>
 
 							<!-- /.panel-body -->
@@ -418,7 +389,7 @@
             $("#category option:gt(0)").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate.do",
+                url:"<%=basePath%>>question/getQuesCate",
                 data:
                     {
                         "quesSub":sub,
@@ -449,7 +420,7 @@
             $("#edit_qcName option").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate.do",
+                url:"<%=basePath%>question/getQuesCate",
                 data:
                     {
                         "quesSub":sub,
@@ -480,7 +451,7 @@
             $("#add_qcName option").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate.do",
+                url:"<%=basePath%>question/getQuesCate",
                 data:
                     {
                         "quesSub":sub,
@@ -524,7 +495,7 @@
             $("#category option:gt(0)").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate.do",
+                url:"<%=basePath%>question/getQuesCate",
                 data:
                 //"{quesSub:'"+sub+"',probQues:'"+probCate+"'}",
                 //data:{"quesSub":sub},
@@ -558,7 +529,7 @@
             $("#edit_qcName option").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate.do",
+                url:"<%=basePath%>question/getQuesCate",
                 data:
                 //"{quesSub:'"+sub+"',probQues:'"+probCate+"'}",
                 //data:{"quesSub":sub},
@@ -591,7 +562,7 @@
             $("#add_qcName option").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate.do",
+                url:"<%=basePath%>question/getQuesCate",
                 data:
                 //"{quesSub:'"+sub+"',probQues:'"+probCate+"'}",
                 //data:{"quesSub":sub},
@@ -625,7 +596,7 @@
     //删除试题
     function deleteQues(p_id,id) {
         if(confirm('确实要删除该题目吗?')) {
-            $.post("<%=basePath%>question/deleteQues.do",{"p_id":p_id,"id":id},function(data){
+            $.post("<%=basePath%>question/deleteQues",{"p_id":p_id,"id":id},function(data){
                 alert("试题删除更新成功！");
                 window.location.reload();
             });
@@ -637,7 +608,7 @@
         $("#edit_blankNumDiv").hide();
         $.ajax({
             type:"get",
-            url:"<%=basePath%>question/editQuesInfo.do",
+            url:"<%=basePath%>question/editQuesInfo",
             data:{"p_id":p_id,"id":id},
             success:function(data) {
                 if(data.probCate.p_id=="1"){
@@ -692,14 +663,14 @@
 
     //跟新试题
     function updateQuestion() {
-        $.post("<%=basePath%>question/updateQuestion.do",$("#edit_question_form").serialize(),function(data){
+        $.post("<%=basePath%>question/updateQuestion",$("#edit_question_form").serialize(),function(data){
             alert("试题信息更新成功！");
             window.location.reload();
         });
     }
 
     function addQuestion() {
-        $.post("<%=basePath%>question/addQuestion.do",$("#add_form").serialize(),function(data){
+        $.post("<%=basePath%>question/addQuestion",$("#add_form").serialize(),function(data){
             alert("试题添加成功！");
             window.location.reload();
         });
@@ -709,7 +680,7 @@
     $(function () {
         $("#addMany_quesSub").change(function () {
             var c_id=$("#addMany_quesSub option:selected").val();
-            $.post("<%=basePath%>question/showQuesCate.do",{"c_id":c_id},function(data){
+            $.post("<%=basePath%>question/showQuesCate",{"c_id":c_id},function(data){
                 $("#addMany_qcNameDiv").empty();
                 for(var i in data){
                     $("#addMany_qcNameDiv").append("&nbsp&nbsp<input type=checkbox name=addMany_qcName value='"+data[i].q_id+"'FieldCount/>"+data[i].qcName+"&nbsp&nbsp&nbsp&nbsp");

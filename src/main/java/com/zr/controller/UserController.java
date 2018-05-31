@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,19 +21,22 @@ public class UserController {
     @Autowired
     private QuesController quesController;
 
-    @RequestMapping("login")
+    @RequestMapping(value = "login", method = RequestMethod.GET)
     public String loginPage(){ return "login"; }
 
-    @RequestMapping(value = "loginCheck")
-    public String loginCheck(HttpServletRequest request, User user, Model model){
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public ModelAndView loginCheck(HttpServletRequest request, User user){
         User isUser =  userService.loginCheck(user);
+        ModelAndView mv = new ModelAndView();
         if (isUser==null) {
-            model.addAttribute("error","用户名或密码错误");
-            return "login";
+            mv.addObject("error","用户名或密码错误");
+            mv.setViewName("login");
         } else {
             request.getSession().setAttribute("user", isUser);
-            return "redirect:/question/list.do";
+            mv.addObject("msg", "欢迎回来");
+            mv.setViewName("forward:/question/list");
         }
+        return mv;
     }
 
     @RequestMapping("logout")
