@@ -126,7 +126,7 @@ public class QuesController {
         return "uploadSuccess";
         else{
             model.addAttribute("msg","文件导入失败");
-            return "redirect:/question/list.do";
+            return "redirect:/question/list";
         }
     }
 

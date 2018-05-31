@@ -55,7 +55,7 @@
     <jsp:include page="showMsg.jsp"/>
     <%--show msg--%>
         <div id="page-wrapper">
-            <h1 class="page-header" style="text-align: center">模板管理</h1>
+            <h1 style="text-align: center">模板管理</h1>
             <form class="form-horizontal">
                 <div class="row">
                     <div class="form-group">
