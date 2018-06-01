@@ -2,10 +2,28 @@ package com.zr.pojo;
 
 public class KnowledgeTemplet {
     int kt_id;
+    PaperTemplet paperTemplet;
+    Knowledge knowledge;
     int judgeQuesNum;
     int selectQuesNum;
     int fillBlankQuesNum;
     int bigQuesNum;
+
+    public PaperTemplet getPaperTemplet() {
+        return paperTemplet;
+    }
+
+    public void setPaperTemplet(PaperTemplet paperTemplet) {
+        this.paperTemplet = paperTemplet;
+    }
+
+    public Knowledge getKnowledge() {
+        return knowledge;
+    }
+
+    public void setKnowledge(Knowledge knowledge) {
+        this.knowledge = knowledge;
+    }
 
     public int getKt_id() {
         return kt_id;

@@ -177,6 +177,20 @@
           </includes>
         </resource>
       </resources>
-
+      <plugins>
+        <plugin>
+          <groupId>org.apache.tomcat.maven</groupId>
+          <artifactId>tomcat7-maven-plugin</artifactId>
+          <version>2.2</version>
+          <configuration>
+            <uriEncoding>UTF-8</uriEncoding>
+            <url>http://127.0.0.1:8080/manager/text</url>
+            <server>TomcatServer</server>
+            <update>true</update>
+            <!--<path>/MavenBuilder##version</path>-->
+            <path>/paper</path>
+          </configuration>
+        </plugin>
+      </plugins>
   </build>
 </project>

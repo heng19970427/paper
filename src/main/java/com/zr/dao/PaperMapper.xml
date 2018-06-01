@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zr.dao.PaperMapper">
+
+    <insert id="insertPaperTemplet" parameterType="PaperTemplet" useGeneratedKeys="true" keyProperty="pt_id" keyColumn="pt_id">
+      insert into papertemplet values(null,#{course.c_id},#{templetName},#{difficultyLevel},#{score},#{judgeQuesNum},#{selectQuesNum},#{bigQuesNum},#{fillBlankQuesNum},#{judgeQuesScore},#{selectQuesScore},#{bigQuesScore},#{fillBlankQuesScore})
+    </insert>
+
+    <insert id="insertKnowledgeTemplet" parameterType="KnowledgeTemplet">
+        insert into knowledgetemplet values(null,#{paperTemplet.pt_id},#{knowledge.k_id},#{judgeQuesNum},#{selectQuesNum},#{fillBlankQuesNum},#{bigQuesNum})
+    </insert>
+
+    <resultMap id="queryAllPaperTempMap" type="PaperTemplet">
+        <id property="pt_id" column="pt_id"/>
+        <result property="templetName" column="templetName"/>
+        <result property="difficultyLevel" column="difficultyLevel"/>
+        <result property="score" column="score"/>
+        <result property="judgeQuesNum" column="judgeQuesNum"/>
+        <result property="selectQuesNum" column="selectQuesNum"/>
+        <result property="bigQuesNum" column="bigQuesNum"/>
+        <result property="fillBlankQuesNum" column="fillBlankQuesNum"/>
+        <result property="judgeQuesScore" column="judgeQuesScore"/>
+        <result property="selectQuesScore" column="selectQuesScore"/>
+        <result property="bigQuesScore" column="bigQuesScore" />
+        <result property="fillBlankQuesScore" column="fillBlankQuesScore" />
+        <result property="fillBlankQuesScore" column="fillBlankQuesScore" />
+        <association property="course" javaType="Course">
+            <id property="c_id" column="c_id"/>
+            <result property="courseName" column="courseName"/>
+        </association>
+    </resultMap>
+
+    <select id="queryAllPaperTemp" parameterType="string" resultMap="queryAllPaperTempMap">
+        SELECT p.pt_id,p.c_id,c.courseName,p.templetName,p.difficultyLevel
+        from papertemplet p
+        LEFT JOIN course c
+        on p.c_id=c.c_id
+        <where>
+            <if test="_parameter!=null and _parameter!=''">
+                c.c_id=#{v}
+            </if>
+        </where>
+    </select>
+
+    <delete id="delTemp" parameterType="string">
+        DELETE from papertemplet
+        WHERE pt_id=#{value}
+    </delete>
+
+    <delete id="delKnowTemp" parameterType="string">
+        DELETE from knowledgetemplet
+        where pt_id=#{v}
+    </delete>
+
+
+    <select id="queryPaperTempByPtId" parameterType="string" resultMap="queryAllPaperTempMap">
+          SELECT * from papertemplet
+          WHERE pt_id=#{v}
+    </select>
+
+    <resultMap id="queryKnowledgeTempMap" type="KnowledgeTemplet">
+        <id property="kt_id" column="kt_id" />
+        <result property="selectQuesNum" column="selectQuesNum" />
+        <result property="fillBlankQuesNum" column="fillBlankQuesNum" />
+        <result property="judgeQuesNum" column="judgeQuesNum" />
+        <result property="bigQuesNum" column="bigQuesNum" />
+        <association property="knowledge" javaType="Knowledge">
+            <id property="k_id" column="k_id"/>
+            <result property="knowledgeName" column="knowledgeName" />
+        </association>
+        <association property="paperTemplet" javaType="PaperTemplet">
+            <id property="pt_id" column="pt_id"/>
+        </association>
+    </resultMap>
+
+    <select id="queryKnowledgeTemp" parameterType="string" resultMap="queryKnowledgeTempMap">
+        SELECT kt.kt_id,kt.pt_id,kt.selectQuesNum,kt.fillBlankQuesNum,kt.judgeQuesNum,kt.bigQuesNum,k.k_id,k.knowledgeName from knowledgetemplet kt
+        LEFT JOIN knowledge k
+        on kt.k_id=k.k_id
+    </select>
+</mapper>

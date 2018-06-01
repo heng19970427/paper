@@ -1,44 +1,48 @@
 package com.zr.pojo;
 
+import java.util.List;
+
 public class PaperTemplet {
-    int p_id;
-    String courseName;
-    KnowledgeTemplet templet;
+    Integer pt_id;
+    Course course;
+    private List<KnowledgeTemplet> knowledgeTemplets;
     String templetName;
-    int score;
-    int difficultyLevel;
-    int judgeQuesNum;
-    int selectQuesNum;
-    int fillBlankQuesNum;
-    int bigQuesNum;
-    int judgeQuesScore;
-    int selectQuesScore;
-    int fillBlankQuesScore;
-    int bigQuesScore;
+    Integer score;
+    Integer difficultyLevel;
+    Integer judgeQuesNum;
+    Integer selectQuesNum;
+    Integer fillBlankQuesNum;
+    Integer bigQuesNum;
+    Integer judgeQuesScore;
+    Integer selectQuesScore;
+    Integer fillBlankQuesScore;
+    Integer bigQuesScore;
 
-    public int getP_id() {
-        return p_id;
+
+    public List<KnowledgeTemplet> getKnowledgeTemplets() {
+        return knowledgeTemplets;
     }
 
-    public void setP_id(int p_id) {
-        this.p_id = p_id;
+    public void setKnowledgeTemplets(List<KnowledgeTemplet> knowledgeTemplets) {
+        this.knowledgeTemplets = knowledgeTemplets;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public Integer getPt_id() {
+        return pt_id;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setPt_id(Integer pt_id) {
+        this.pt_id = pt_id;
     }
 
-    public KnowledgeTemplet getTemplet() {
-        return templet;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setTemplet(KnowledgeTemplet templet) {
-        this.templet = templet;
+    public void setCourse(Course course) {
+        this.course = course;
     }
+
 
     public String getTempletName() {
         return templetName;
@@ -48,83 +52,83 @@ public class PaperTemplet {
         this.templetName = templetName;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 
-    public int getDifficultyLevel() {
+    public Integer getDifficultyLevel() {
         return difficultyLevel;
     }
 
-    public void setDifficultyLevel(int difficultyLevel) {
+    public void setDifficultyLevel(Integer difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
     }
 
-    public int getJudgeQuesNum() {
+    public Integer getJudgeQuesNum() {
         return judgeQuesNum;
     }
 
-    public void setJudgeQuesNum(int judgeQuesNum) {
+    public void setJudgeQuesNum(Integer judgeQuesNum) {
         this.judgeQuesNum = judgeQuesNum;
     }
 
-    public int getSelectQuesNum() {
+    public Integer getSelectQuesNum() {
         return selectQuesNum;
     }
 
-    public void setSelectQuesNum(int selectQuesNum) {
+    public void setSelectQuesNum(Integer selectQuesNum) {
         this.selectQuesNum = selectQuesNum;
     }
 
-    public int getFillBlankQuesNum() {
+    public Integer getFillBlankQuesNum() {
         return fillBlankQuesNum;
     }
 
-    public void setFillBlankQuesNum(int fillBlankQuesNum) {
+    public void setFillBlankQuesNum(Integer fillBlankQuesNum) {
         this.fillBlankQuesNum = fillBlankQuesNum;
     }
 
-    public int getBigQuesNum() {
+    public Integer getBigQuesNum() {
         return bigQuesNum;
     }
 
-    public void setBigQuesNum(int bigQuesNum) {
+    public void setBigQuesNum(Integer bigQuesNum) {
         this.bigQuesNum = bigQuesNum;
     }
 
-    public int getJudgeQuesScore() {
+    public Integer getJudgeQuesScore() {
         return judgeQuesScore;
     }
 
-    public void setJudgeQuesScore(int judgeQuesScore) {
+    public void setJudgeQuesScore(Integer judgeQuesScore) {
         this.judgeQuesScore = judgeQuesScore;
     }
 
-    public int getSelectQuesScore() {
+    public Integer getSelectQuesScore() {
         return selectQuesScore;
     }
 
-    public void setSelectQuesScore(int selectQuesScore) {
+    public void setSelectQuesScore(Integer selectQuesScore) {
         this.selectQuesScore = selectQuesScore;
     }
 
-    public int getFillBlankQuesScore() {
+    public Integer getFillBlankQuesScore() {
         return fillBlankQuesScore;
     }
 
-    public void setFillBlankQuesScore(int fillBlankQuesScore) {
+    public void setFillBlankQuesScore(Integer fillBlankQuesScore) {
         this.fillBlankQuesScore = fillBlankQuesScore;
     }
 
-    public int getBigQuesScore() {
+    public Integer getBigQuesScore() {
         return bigQuesScore;
     }
 
-    public void setBigQuesScore(int bigQuesScore) {
+    public void setBigQuesScore(Integer bigQuesScore) {
         this.bigQuesScore = bigQuesScore;
     }
 }
