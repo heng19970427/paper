@@ -6,6 +6,7 @@
 
 #wrapper {
     width: 100%;
+    min-width: 1000px;
 }
 
 #page-wrapper {

@@ -20,7 +20,8 @@ public class AuthInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if(user != null){
-            if(userService.loginCheck(user) == null){
+            if(userService.loginCheck(user.getUserName(), user.getPassword()) == null){
+                session.removeAttribute("user");
                 request.setAttribute("error", "用户信息出错, 请重新登录!");
                 request.getRequestDispatcher("/user/login").forward(request,response);
             }else {

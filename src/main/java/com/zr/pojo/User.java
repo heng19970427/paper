@@ -2,9 +2,18 @@ package com.zr.pojo;
 
 public class User {
     int u_id;
+    int r_id;
     String roleName;
     String userName;
     String password;
+
+    public int getR_id() {
+        return r_id;
+    }
+
+    public void setR_id(int r_id) {
+        this.r_id = r_id;
+    }
 
     public int getU_id() {
         return u_id;

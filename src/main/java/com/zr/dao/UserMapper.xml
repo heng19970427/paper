@@ -3,12 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zr.dao.UserMapper">
-    <select id="selectUserByNamePsd" parameterType="user" resultType="user">
-        SELECT * FROM `user` u LEFT JOIN role r on u.r_id=r.r_id
-        <where>
-            u.userName=#{userName}
-            and
+    <!--根据u_id来更新用户密码-->
+    <update id="changePasswdByUID" parameterType="user">
+        update user u set
             u.password=#{password}
-        </where>
-    </select>
+        where
+            u.u_id=#{u_id}
+    </update>
+    <!--添加一个新用户, u_id 为自增主键-->
+    <insert id="addUser" parameterType="user" useGeneratedKeys="true">
+        insert into user (r_id, userName, password)
+                values (#{r_id}, #{userName}, #{password})
+    </insert>
+    <!--更新用户权限r_id-->
+    <update id="changeRoleByUID" parameterType="user">
+        update user u set
+            u.r_id=#{r_id}
+        where
+            u_id=#{u_id}
+    </update>
 </mapper>
