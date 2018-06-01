@@ -250,9 +250,35 @@
 
             <!-- Custom Theme JavaScript -->
     <script src="<%=basePath%>js/sb-admin-2.js"></script>
+    <script type="text/javascript">
+    function setKnowledge() {
+        $.post("<%=basePath%>paperTemplate/createTemp1.do",$("#setTemp1").serialize(),function(data){
+            for(var i in data){
+                $("#setTemp2").append("<input type='hidden' name='knowledgeTemplets["+i+"].knowledge.k_id' value='"+data[i].k_id+"' />");
+                $("#setKnow").append("<tr><td>"+data[i].knowledgeName+"</td><td><input name='knowledgeTemplets["+i+"].selectQuesNum'/></td><td><input name='knowledgeTemplets["+i+"].fillBlankQuesNum'/></td><td><input name='knowledgeTemplets["+i+"].judgeQuesNum'/></td><td><input name='knowledgeTemplets["+i+"].bigQuesNum'/></td></tr>")
+            }
+        });
+    }
 
+    function editTemp(pt_id) {
+        $.post("<%=basePath%>paperTemplate/editTemp.do",{"pt_id":pt_id},function(data){
+            window.location.reload();
+        });
+    }
 
+    function deleteTemp(pt_id) {
+        $.post("<%=basePath%>paperTemplate/delTemp.do",{"pt_id":pt_id},function(data){
+            window.location.reload();
+        });
+    }
+    function setKnowledge2() {
+        $.post("<%=basePath%>paperTemplate/createTemp2.do",$("#setTemp2").serialize(),function(data){
+            alert("模板创建成功！");
+            window.location.reload();
+        });
+    }
 
+</script>
 </body>
 
         </html>
