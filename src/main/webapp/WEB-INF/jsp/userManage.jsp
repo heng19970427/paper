@@ -15,16 +15,26 @@
 <jsp:include page="header.jsp"/>
 <div class="body">
     <jsp:include page="showMsg.jsp"/>
-    <table>
-        <th>用户名</th>
-        <th>用户角色</th>
-        <c:forEach items="${users}" var="u">
+    <div class="table-responsive">
+        <table class="table table-bordered">
             <tr>
-                <td>${u.userName}</td>
-                <td>${u.roleName}</td>
+                <th>用户名</th>
+                <th>用户角色</th>
+                <th>更改密码</th>
+                <th>更改角色</th>
+                <th>删除用户</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach items="${users}" var="u">
+                <tr>
+                    <td>${u.userName}</td>
+                    <td>${u.roleName}</td>
+                    <td><a href="#"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                    <td><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></td>
+                    <td><a href="#"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </div>
 </body>
 </html>
