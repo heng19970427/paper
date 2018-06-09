@@ -37,9 +37,19 @@
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+<%--bootstrapTable--%>
+<link href="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<%--bootstrap-validator--%>
+<link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/language/zh_CN.min.js"></script>
+<%--serializejson--%>
+<script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminCss.css">
 <%--css and js end--%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminCss.css">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -59,11 +69,10 @@
                 <li><a href="#">试卷仓库</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <jsp:useBean id="user" beanName="user" scope="session" type="com.zr.pojo.User"/>
-                <c:if test="${user.roleName == 'manager'}">
-                    <li><a href="${pageContext.request.contextPath}/user/userManage">用户管理</a></li>
+                <c:if test="${sessionScope.user.r_id == 2}">
+                    <li><a href="${pageContext.request.contextPath}/user/man/userManage">用户管理</a></li>
                 </c:if>
-                <li><a href="#">${user.userName}</a></li>
+                <li><a href="#">${sessionScope.user.userName}</a></li>
                 <li><a href="${pageContext.request.contextPath}/user/logout">注销</a></li>
             </ul>
         </div>

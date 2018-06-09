@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zr.dao.UserMapper">
+
     <!--根据u_id来更新用户密码-->
     <update id="changePasswdByUID" parameterType="user">
         update user u set
@@ -10,16 +11,23 @@
         where
             u.u_id=#{u_id}
     </update>
+
     <!--添加一个新用户, u_id 为自增主键-->
     <insert id="addUser" parameterType="user" useGeneratedKeys="true">
-        insert into user (r_id, userName, password)
-                values (#{r_id}, #{userName}, #{password})
+        insert into user (r_id, userName, password, note)
+                values (#{r_id}, #{userName}, #{password}, #{note})
     </insert>
-    <!--更新用户权限r_id-->
-    <update id="changeRoleByUID" parameterType="user">
-        update user u set
-            u.r_id=#{r_id}
-        where
-            u_id=#{u_id}
+
+    <!--更新用户信息-->
+    <update id="updateUser" parameterType="user">
+        update user
+            <set>
+                <if test="userName != null">userName=#{userName},</if>
+                <if test="password != null">password=#{password},</if>
+                <if test="r_id != null">r_id=#{r_id},</if>
+                <if test="note != null">note=#{note}</if>
+            </set>
+        where u_id=#{u_id}
     </update>
+
 </mapper>

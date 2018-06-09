@@ -6,9 +6,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!--扫描Controller-->
     <context:component-scan base-package="com.zr.controller"/>
+    <!--扫描pojo, 注册为spring bean-->
+    <context:component-scan base-package="com.zr.pojo"/>
+    <!--注解驱动 并用hibernate-validator替换默认的validator-->
+    <mvc:annotation-driven validator="validator"/>
 
-    <!--注解驱动-->
-    <mvc:annotation-driven/>
+    <!--hibernate validator-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>
 
     <!--默认servlet 处理静态资源响应-->
     <mvc:default-servlet-handler/>
@@ -23,7 +29,13 @@
             <mvc:exclude-mapping path="/css/**"/>
             <mvc:exclude-mapping path="/font/**"/>
             <mvc:exclude-mapping path="/favicon.ico"/>
+            <mvc:exclude-mapping path="/error/**"/>
             <bean class="com.zr.interceptor.AuthInterceptor"/>
+        </mvc:interceptor>
+        <!--管理员权限访问检查-->
+        <mvc:interceptor>
+            <mvc:mapping path="/user/man/**"/>
+            <bean class="com.zr.interceptor.AdminInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
     <!--配置视图解析器-->
