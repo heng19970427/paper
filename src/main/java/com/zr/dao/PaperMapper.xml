@@ -81,4 +81,68 @@
         LEFT JOIN knowledge k
         on kt.k_id=k.k_id
     </select>
+
+
+    <update id="updatePaperTemplet" parameterType="PaperTemplet">
+        UPDATE papertemplet
+        <set>
+            <if test="course.c_id!=null">
+                c_id=#{course.c_id},
+            </if>
+            <if test="score!=null">
+                score=#{score},
+            </if>
+            <if test="difficultyLevel!=null">
+                difficultyLevel=#{difficultyLevel},
+            </if>
+            <if test="judgeQuesNum!=null">
+                judgeQuesNum=#{judgeQuesNum},
+            </if>
+            <if test="selectQuesNum!=null">
+                selectQuesNum=#{selectQuesNum},
+            </if>
+            <if test="fillBlankQuesNum!=null">
+                fillBlankQuesNum=#{fillBlankQuesNum},
+            </if>
+            <if test="bigQuesNum!=null">
+                bigQuesNum=#{bigQuesNum},
+            </if>
+            <if test="judgeQuesScore!=null">
+                judgeQuesScore=#{judgeQuesScore},
+            </if>
+            <if test="selectQuesScore!=null">
+                selectQuesScore=#{selectQuesScore},
+            </if>
+            <if test="fillBlankQuesScore!=null">
+                fillBlankQuesScore=#{fillBlankQuesScore},
+            </if>
+            <if test="bigQuesScore!=null">
+                bigQuesScore=#{bigQuesScore}
+            </if>
+        </set>
+        <where>
+            pt_id=#{pt_id}
+        </where>
+    </update>
+
+    <update id="updateKnowledgeTemplet" parameterType="KnowledgeTemplet">
+      update knowledgetemplet
+      <set>
+          <if test="judgeQuesNum!=null">
+              judgeQuesNum=#{judgeQuesNum},
+          </if>
+          <if test="selectQuesNum!=null">
+              selectQuesNum=#{selectQuesNum},
+          </if>
+          <if test="fillBlankQuesNum!=null">
+              fillBlankQuesNum=#{fillBlankQuesNum},
+          </if>
+          <if test="bigQuesNum!=null">
+              bigQuesNum=#{bigQuesNum}
+          </if>
+      </set>
+        <where>
+            kt_id=#{kt_id}
+        </where>
+    </update>
 </mapper>

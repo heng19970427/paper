@@ -504,17 +504,17 @@
                         "probQues":probCate
                     },
                 success:function(data) {
-                    for (var i in data){
-                        //创建文本节点
-                        var quesCate = data[i].qcName
-                        var textSub = document.createTextNode(quesCate);
-                        //创建option节点
-                        var op = document.createElement("option");
-                        //修改option的value
-                        $(op).val(data[i].q_id);
-                        $(op).append(textSub);
-                        $(op).appendTo("#category");
-                    }
+                        for (var i in data){
+                            //创建文本节点
+                            var quesCate = data[0][i].qcName
+                            var textSub = document.createTextNode(quesCate);
+                            //创建option节点
+                            var op = document.createElement("option");
+                            //修改option的value
+                            $(op).val(data[0][i].q_id);
+                            $(op).append(textSub);
+                            $(op).appendTo("#category");
+                        }
                 }
             });
         })

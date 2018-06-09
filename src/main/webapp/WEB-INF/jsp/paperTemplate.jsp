@@ -59,7 +59,6 @@
             <li role="presentation" class="active"><a href="#allTemp" aria-controls="home" role="tab" data-toggle="tab">所有模板</a></li>
             <li role="presentation" ><a href="#templetCreate" aria-controls="profile" role="tab" data-toggle="tab">创建模板</a></li>
             <li role="presentation"><a href="#knowlidgeTemp" aria-controls="messages" role="tab" data-toggle="tab">知识点占比</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
         </ul>
 
         <!-- Tab panes -->
@@ -98,14 +97,176 @@
                             <tr>
                                 <td>${templet.templetName}</td>
                                 <td>${templet.difficultyLevel}</td>
-                                <td><a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#customerEditDialog" onclick=editTemp("${templet.pt_id}")>详情</a></td>
+                                <td>
+                                    <a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#paperEditDialog" onclick=editTemp("${templet.pt_id}")>详情</a>
+                                </td>
                                 <td><a href="#" class="btn btn-danger btn-xs" onclick=deleteTemp("${templet.pt_id}")>删除</a></td>
-                                <td><a href="#">生成试卷</a></td>
+                                <td><a href="#" class="btn btn-info btn-xs" data-toggle="modal" data-target="#createPaperDialog" onclick="getPt_id('${templet.pt_id}')">生成试卷</a></td>
                             </tr>
                         </c:forEach>
                     </table>
+
+                </div>
+
+            </div>
+
+            <%--模板编辑页面--%>
+            <div class="modal fade" id="paperEditDialog" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+                <div class="modal-dialog" style="width: 1040px" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">模板详细信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="editTemp1Div">
+                                <form class="form-horizontal" id="editTemp1">
+                                    <input type="hidden" id="edit_pt_id" name="pt_id"/>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="edit_courseName" class="col-sm-1 control-label">科目</label>
+                                            <div class="col-sm-3">
+                                                <select id="edit_courseName" class="form-control" name="course.c_id">
+                                                    <c:forEach items="${courseList}" var="course">
+                                                        <option value="${course.c_id}">${course.courseName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+
+                                            <label for="score" class="col-sm-1 control-label">总分</label>
+                                            <div class="col-sm-3">
+                                                <input type="input" class="form-control" id="edit_score" name="score" placeholder="总分">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="selectQuesNum" class="col-sm-1 control-label">选择题数目</label>
+                                            <div class="col-sm-3">
+                                                <input type="input" class="form-control" id="edit_selectQuesNum" name="selectQuesNum" placeholder="总分">
+                                            </div>
+                                            <label for="selectQuesNum" class="col-sm-1 control-label">填空题数目</label>
+                                            <div class="col-sm-3">
+                                                <input type="input" class="form-control" id="edit_fillBlankQuesNum" name="fillBlankQuesNum" placeholder="总分">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="selectQuesNum" class="col-sm-1 control-label">判断题数目</label>
+                                            <div class="col-sm-3">
+                                                <input type="input" class="form-control" id="edit_judgeQuesNum" name="judgeQuesNum" placeholder="总分">
+                                            </div>
+                                            <label for="selectQuesNum" class="col-sm-1 control-label">大题数目</label>
+                                            <div class="col-sm-3">
+                                                <input type="input" class="form-control" id="edit_bigQuesNum" name="bigQuesNum" placeholder="总分">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="selectQuesNum" class="col-sm-1 control-label">选择题分数</label>
+                                        <div class="col-sm-3">
+                                            <input type="input" class="form-control" id="edit_selectQuesScore" name="selectQuesScore" placeholder="判断题数目">
+                                        </div>
+                                        <label for="fillBlankQuesScore" class="col-sm-1 control-label">填空题分数</label>
+                                        <div class="col-sm-3">
+                                            <input type="input" class="form-control" id="edit_fillBlankQuesScore" name="fillBlankQuesScore" placeholder="大题数目">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="judgeQuesScore" class="col-sm-1 control-label">判断题分数</label>
+                                        <div class="col-sm-3">
+                                            <input type="input" class="form-control" id="edit_judgeQuesScore" name="judgeQuesScore" placeholder="判断题数目">
+                                        </div>
+                                        <label for="bigQuesScore" class="col-sm-1 control-label">大题分数</label>
+                                        <div class="col-sm-3">
+                                            <input type="input" class="form-control" id="edit_bigQuesScore" name="bigQuesScore" placeholder="大题数目">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label for="templetName" class="col-sm-1 control-label">模板名称</label>
+                                        <div class="col-sm-3">
+                                            <input type="input" class="form-control" id="edit_templetName" name="templetName" value="java普通模板" placeholder="总分">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="difficultyLevel" class="col-sm-1 control-label">难度系数</label>
+                                        <div class="col-sm-3">
+                                            <input type="input" class="form-control" id="edit_difficultyLevel" name="difficultyLevel" placeholder="总分">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <label>知识点占比查看</label>
+                                            <button type="button" class="btn btn-default" onclick="editKnowledge1()">点击前往</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <div id="editTemp2Div" style="display: none">
+                                <form id="editTemp2" >
+                                    <table width="550px" id="editKnow">
+                                        <tr>
+                                            <td>知识点</td>
+                                            <td>选择题</td>
+                                            <td>填空题</td>
+                                            <td>判断题</td>
+                                            <td>大题</td>
+                                        </tr>
+                                        <tr>
+                                            <td>100</td>
+                                            <td>100</td>
+                                            <td>100</td>
+                                            <td>100</td>
+                                            <td>100</td>
+                                        </tr>
+                                    </table>
+                                </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary" onclick="updatePaperTemp()">保存修改</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
+            <%--模板编辑页面--%>
+
+            <%--输入试卷名字--%>
+                <div class="modal fade" id="createPaperDialog" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" style="width: 250px" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel2">请输入试卷名称</h4>
+                            </div>
+                            <div class="modal-body" style="align-self: center">
+                                <input id="paperName" name="paperName" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <a href="#" class="btn btn-primary" onclick="createPaper()">生成试卷</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <%--输入试卷名字--%>
+
             <%--模板创建--%>
             <div role="tabpanel" class="tab-pane" id="templetCreate">
                 <div>
@@ -223,6 +384,7 @@
                 </form>
 
             </div>
+
             <%--知识点占比--%>
             <div role="tabpanel" class="tab-pane" id="settings">
 
@@ -251,20 +413,58 @@
             <!-- Custom Theme JavaScript -->
     <script src="<%=basePath%>js/sb-admin-2.js"></script>
     <script type="text/javascript">
+        //存储paperTemplet的json字符串
+        var paperTemp="";
+
+        //当前模板id
+        var current_pt_id;
     function setKnowledge() {
         $.post("<%=basePath%>paperTemplate/createTemp1.do",$("#setTemp1").serialize(),function(data){
-            for(var i in data){
-                $("#setTemp2").append("<input type='hidden' name='knowledgeTemplets["+i+"].knowledge.k_id' value='"+data[i].k_id+"' />");
-                $("#setKnow").append("<tr><td>"+data[i].knowledgeName+"</td><td><input name='knowledgeTemplets["+i+"].selectQuesNum'/></td><td><input name='knowledgeTemplets["+i+"].fillBlankQuesNum'/></td><td><input name='knowledgeTemplets["+i+"].judgeQuesNum'/></td><td><input name='knowledgeTemplets["+i+"].bigQuesNum'/></td></tr>")
-            }
+
         });
     }
 
     function editTemp(pt_id) {
         $.post("<%=basePath%>paperTemplate/editTemp.do",{"pt_id":pt_id},function(data){
-            window.location.reload();
+            paperTemp=data;
+            $("#edit_courseName").find("option[value = '"+data.course.c_id+"']").attr("selected","selected");
+            $("#edit_score").val(data.score);
+            $("#edit_selectQuesNum").val(data.selectQuesNum);
+            $("#edit_fillBlankQuesNum").val(data.fillBlankQuesNum);
+            $("#edit_judgeQuesNum").val(data.judgeQuesNum);
+            $("#edit_bigQuesNum").val(data.bigQuesNum);
+            $("#edit_selectQuesScore").val(data.selectQuesScore);
+            $("#edit_fillBlankQuesScore").val(data.fillBlankQuesScore);
+            $("#edit_judgeQuesScore").val(data.judgeQuesScore);
+            $("#edit_bigQuesScore").val(data.bigQuesScore);
+            $("#edit_templetName").val(data.templetName);
+            $("#edit_difficultyLevel").val(data.difficultyLevel);
+            $("#edit_pt_id").val(pt_id);
         });
     }
+
+    function editKnowledge1(){
+        //将修改后的数据提交到服务端
+        $.post("<%=basePath%>paperTemplate/createTemp1.do",$("#editTemp1").serialize(),function(data){
+        });
+        //明天写
+
+        //获取所有知识点模板
+        var data=paperTemp.knowledgeTemplets;
+            for(var i in data){
+                $("#editKnow").append("<tr><td>"+data[i].knowledge.knowledgeName+"</td><td><input name='knowledgeTemplets["+i+"].selectQuesNum' value='"+data[i].selectQuesNum+"'/></td><td><input name='knowledgeTemplets["+i+"].fillBlankQuesNum' value='"+data[i].fillBlankQuesNum+"'/></td><td><input name='knowledgeTemplets["+i+"].judgeQuesNum' value='"+data[i].judgeQuesNum+"'/></td><td><input name='knowledgeTemplets["+i+"].bigQuesNum' value='"+data[i].bigQuesNum+"'/></td></tr>")
+                $("#editKnow").append("<input type='hidden' name='knowledgeTemplets["+i+"].kt_id' value='"+data[i].kt_id+"'/>");
+            }
+            $("#editTemp1Div").hide();
+            $("#editTemp2Div").show();
+    }
+
+       function updatePaperTemp() {
+           $.post("<%=basePath%>paperTemplate/updateTemp",$("#editTemp2").serialize(),function(data){
+               alert("模板更新成功！");
+               window.location.reload();
+           });
+       }
 
     function deleteTemp(pt_id) {
         $.post("<%=basePath%>paperTemplate/delTemp.do",{"pt_id":pt_id},function(data){
@@ -278,6 +478,22 @@
         });
     }
 
+        function getPt_id(pt_id){
+            current_pt_id=pt_id;
+        }
+
+
+        function createPaper(){
+            var paperName=$("#paperName").val();
+            var a = document.createElement('a');
+            var url = "<%=basePath%>paper/createPaper?paperName='"+paperName+"'&pt_id='"+current_pt_id+"'";
+            a.href=url;
+            a.click();
+        }
+
+    $(document).ready(function(){
+        $('#paperEditDialog').modal('show');
+    })
 </script>
 </body>
 

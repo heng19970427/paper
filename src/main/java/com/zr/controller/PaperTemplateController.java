@@ -64,11 +64,25 @@ public class PaperTemplateController {
         return "OK";
     }
 
+    @RequestMapping("updateTemp")
+    public @ResponseBody
+    String updateTemp(PaperTemplet paperTemplet2){
+        PaperTemplet paperTemplet1= (PaperTemplet) servletContext.getAttribute("paperTemplet");
+        //将知识点模板封装到试卷模板
+
+        paperTemplet1.setKnowledgeTemplets(paperTemplet2.getKnowledgeTemplets());
+        //将试卷模板持久化
+        templetService.updatePaperTemp(paperTemplet1);
+        //清空appliction域的试卷模板
+        servletContext.removeAttribute("paperTemplet");
+        return "OK";
+    }
+
     @RequestMapping("editTemp")
     public @ResponseBody
-    String editTemp(String pt_id){
-        PaperTemplet paperTemplet=templetService.editTemp(pt_id);
-        return "OK";
+    PaperTemplet editTemp(String pt_id){
+        PaperTemplet paperTemplet=templetService.queryPaperTempByPtId(pt_id);
+        return paperTemplet;
     }
 
 
