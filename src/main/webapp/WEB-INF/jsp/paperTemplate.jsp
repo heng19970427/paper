@@ -3,12 +3,8 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="zr" uri="http://zr/common/" %>
-<%
-        String path = request.getContextPath();
-        String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-        + path + "/";
-        %>
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta content="text/html;charset=utf8"/>
@@ -17,31 +13,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>题库管理</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="<%=basePath%>css/metisMenu.min.css" rel="stylesheet">
-
-    <!-- DataTables CSS -->
-    <link href="<%=basePath%>css/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="<%=basePath%>css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="<%=basePath%>css/font-awesome.min.css" rel="stylesheet"
-          type="text/css">
-    <link href="<%=basePath%>css/boot-crm.css" rel="stylesheet"
-          type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 
@@ -56,9 +27,12 @@
     <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#allTemp" aria-controls="home" role="tab" data-toggle="tab">所有模板</a></li>
-            <li role="presentation" ><a href="#templetCreate" aria-controls="profile" role="tab" data-toggle="tab">创建模板</a></li>
-            <li role="presentation"><a href="#knowlidgeTemp" aria-controls="messages" role="tab" data-toggle="tab">知识点占比</a></li>
+            <li role="presentation" class="active"><a href="#allTemp" aria-controls="home" role="tab"
+                                                      data-toggle="tab">所有模板</a></li>
+            <li role="presentation" ><a href="#templetCreate" aria-controls="profile" role="tab" data-toggle="tab">创建模板</a>
+            </li>
+            <li role="presentation"><a href="#knowlidgeTemp" aria-controls="messages" role="tab" data-toggle="tab">知识点占比</a>
+            </li>
         </ul>
 
         <!-- Tab panes -->
@@ -138,7 +112,8 @@
 
                                             <label for="score" class="col-sm-1 control-label">总分</label>
                                             <div class="col-sm-3">
-                                                <input type="input" class="form-control" id="edit_score" name="score" placeholder="总分">
+                                                <input type="input" class="form-control" id="edit_score" name="score"
+                                                       placeholder="总分">
                                             </div>
                                         </div>
                                     </div>
@@ -147,7 +122,8 @@
                                         <div class="form-group">
                                             <label for="selectQuesNum" class="col-sm-1 control-label">选择题数目</label>
                                             <div class="col-sm-3">
-                                                <input type="input" class="form-control" id="edit_selectQuesNum" name="selectQuesNum" placeholder="总分">
+                                                <input type="input" class="form-control" id="edit_selectQuesNum" name="selectQuesNum"
+                                                       placeholder="选择题数目">
                                             </div>
                                             <label for="selectQuesNum" class="col-sm-1 control-label">填空题数目</label>
                                             <div class="col-sm-3">
@@ -397,21 +373,7 @@
 </div>
 </div>        <!-- /#wrapper -->
 
-        <!-- jQuery -->
-    <script src="<%=basePath%>js/jquery.min.js"></script>
 
-            <!-- Bootstrap Core JavaScript -->
-    <script src="<%=basePath%>js/bootstrap.min.js"></script>
-
-            <!-- Metis Menu Plugin JavaScript -->
-    <script src="<%=basePath%>js/metisMenu.min.js"></script>
-
-            <!-- DataTables JavaScript -->
-    <script src="<%=basePath%>js/jquery.dataTables.min.js"></script>
-    <script src="<%=basePath%>js/dataTables.bootstrap.min.js"></script>
-
-            <!-- Custom Theme JavaScript -->
-    <script src="<%=basePath%>js/sb-admin-2.js"></script>
     <script type="text/javascript">
         //存储paperTemplet的json字符串
         var paperTemp="";
@@ -419,13 +381,13 @@
         //当前模板id
         var current_pt_id;
     function setKnowledge() {
-        $.post("<%=basePath%>paperTemplate/createTemp1.do",$("#setTemp1").serialize(),function(data){
+        $.post("${pageContext.request.contextPath}/paperTemplate/createTemp1.do",$("#setTemp1").serialize(),function(data){
 
         });
     }
 
     function editTemp(pt_id) {
-        $.post("<%=basePath%>paperTemplate/editTemp.do",{"pt_id":pt_id},function(data){
+        $.post("${pageContext.request.contextPath}/paperTemplate/editTemp.do",{"pt_id":pt_id},function(data){
             paperTemp=data;
             $("#edit_courseName").find("option[value = '"+data.course.c_id+"']").attr("selected","selected");
             $("#edit_score").val(data.score);
@@ -445,7 +407,7 @@
 
     function editKnowledge1(){
         //将修改后的数据提交到服务端
-        $.post("<%=basePath%>paperTemplate/createTemp1.do",$("#editTemp1").serialize(),function(data){
+        $.post("${pageContext.request.contextPath}/paperTemplate/createTemp1.do",$("#editTemp1").serialize(),function(data){
         });
         //明天写
 
@@ -460,19 +422,19 @@
     }
 
        function updatePaperTemp() {
-           $.post("<%=basePath%>paperTemplate/updateTemp",$("#editTemp2").serialize(),function(data){
+           $.post("${pageContext.request.contextPath}/paperTemplate/updateTemp",$("#editTemp2").serialize(),function(data){
                alert("模板更新成功！");
                window.location.reload();
            });
        }
 
     function deleteTemp(pt_id) {
-        $.post("<%=basePath%>paperTemplate/delTemp.do",{"pt_id":pt_id},function(data){
+        $.post("${pageContext.request.contextPath}/paperTemplate/delTemp.do",{"pt_id":pt_id},function(data){
             window.location.reload();
         });
     }
     function setKnowledge2() {
-        $.post("<%=basePath%>paperTemplate/createTemp2.do",$("#setTemp2").serialize(),function(data){
+        $.post("${pageContext.request.contextPath}/paperTemplate/createTemp2.do",$("#setTemp2").serialize(),function(data){
             alert("模板创建成功！");
             window.location.reload();
         });
@@ -486,7 +448,7 @@
         function createPaper(){
             var paperName=$("#paperName").val();
             var a = document.createElement('a');
-            var url = "<%=basePath%>paper/createPaper?paperName='"+paperName+"'&pt_id='"+current_pt_id+"'";
+            var url = "${pageContext.request.contextPath}/paper/createPaper?paperName='"+paperName+"'&pt_id='"+current_pt_id+"'";
             a.href=url;
             a.click();
         }

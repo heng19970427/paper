@@ -3,47 +3,14 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="zr" uri="http://zr/common/" %>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
-
 	<title>题库管理</title>
-
-	<!-- Bootstrap Core CSS -->
-	<link href="<%=basePath%>css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- MetisMenu CSS -->
-	<link href="<%=basePath%>css/metisMenu.min.css" rel="stylesheet">
-
-	<!-- DataTables CSS -->
-	<link href="<%=basePath%>css/dataTables.bootstrap.css" rel="stylesheet">
-
-	<!-- Custom CSS -->
-	<link href="<%=basePath%>css/sb-admin-2.css" rel="stylesheet">
-
-	<!-- Custom Fonts -->
-	<link href="<%=basePath%>css/font-awesome.min.css" rel="stylesheet"
-		  type="text/css">
-	<link href="<%=basePath%>css/boot-crm.css" rel="stylesheet"
-		  type="text/css">
-
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-	<![endif]-->
-
 </head>
 
 <body>
@@ -184,8 +151,8 @@
 
 			</div>
 			<!--/ 批量导入 -->
+
 			<div role="tabpanel" class="panel panel-default tab-pane active" id="quesManage">
-				<h1 class="page-header" style="text-align: center">题库管理</h1>
 				<div class="panel-body">
 					<form class="form-inline" action="${pageContext.request.contextPath }/question/list" method="get">
 						<div class="form-group" style="padding-left: 10px">
@@ -249,8 +216,11 @@
 										<td>${row.difficultyLevel}</td>
 
 										<td align="center">
-											<a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#customerEditDialog" onclick=editQues("${row.p_id}","${row.id}")>详情</a>
-											<a href="#" class="btn btn-danger btn-xs" onclick=deleteQues("${row.p_id}","${row.id}")>删除</a>
+											<a href="#" class="btn btn-primary btn-xs" data-toggle="modal"
+											   data-target="#customerEditDialog"
+											   onclick=editQues("${row.p_id}","${row.id}")>详情</a>
+											<a href="#" class="btn btn-danger btn-xs"
+											   onclick=deleteQues("${row.p_id}","${row.id}")>删除</a>
 										</td>
 									</tr>
 								</c:forEach>
@@ -324,19 +294,22 @@
 					<div class="form-group">
 						<label for="edit_knowledge" class="col-sm-1 control-label">知识点</label>
 						<div class="col-sm-11">
-							<input type="text" class="form-control" id="edit_knowledge" placeholder="知识点" name="knowledge.knowledgeName">
+							<input type="text" class="form-control" id="edit_knowledge" placeholder="知识点"
+								   name="knowledge.knowledgeName">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="edit_difficultyLevel" class="col-sm-1 control-label">难度系数</label>
 						<div class="col-sm-11">
-							<input type="text" class="form-control" id="edit_difficultyLevel" placeholder="难度系数" name="difficultyLevel">
+							<input type="text" class="form-control" id="edit_difficultyLevel" placeholder="难度系数"
+								   name="difficultyLevel">
 						</div>
 					</div>
 					<div class="form-group" id="edit_blankNumDiv" style="display:none">
 						<label for="edit_blankNum" class="col-sm-1 control-label">空的个数</label>
 						<div class="col-sm-11">
-							<input type="text" class="form-control" id="edit_blankNum" placeholder="空的个数" name="blankNum">
+							<input type="text" class="form-control" id="edit_blankNum" placeholder="空的个数"
+								   name="blankNum">
 						</div>
 					</div>
 					<div class="form-group">
@@ -348,7 +321,8 @@
 					<div class="form-group">
 						<label for="edit_description" class="col-sm-1 control-label">试题来源</label>
 						<div class="col-sm-11">
-							<input type="text" class="form-control" id="edit_description" placeholder="试题来源" name="description">
+							<input type="text" class="form-control" id="edit_description" placeholder="试题来源"
+								   name="description">
 						</div>
 					</div>
 				</form>
@@ -362,22 +336,6 @@
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery -->
-<script src="<%=basePath%>js/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="<%=basePath%>js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="<%=basePath%>js/metisMenu.min.js"></script>
-
-<!-- DataTables JavaScript -->
-<script src="<%=basePath%>js/jquery.dataTables.min.js"></script>
-<script src="<%=basePath%>js/dataTables.bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="<%=basePath%>js/sb-admin-2.js"></script>
-
 <script type="text/javascript">
 
 
@@ -389,7 +347,7 @@
             $("#category option:gt(0)").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>>question/getQuesCate",
+                url:"${pageContext.request.contextPath}/question/getQuesCate",
                 data:
                     {
                         "quesSub":sub,
@@ -420,7 +378,7 @@
             $("#edit_qcName option").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate",
+                url:"${pageContext.request.contextPath}/question/getQuesCate",
                 data:
                     {
                         "quesSub":sub,
@@ -451,7 +409,7 @@
             $("#add_qcName option").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate",
+                url:"${pageContext.request.contextPath}/question/getQuesCate",
                 data:
                     {
                         "quesSub":sub,
@@ -495,7 +453,7 @@
             $("#category option:gt(0)").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate",
+                url:"${pageContext.request.contextPath}/question/getQuesCate",
                 data:
                 //"{quesSub:'"+sub+"',probQues:'"+probCate+"'}",
                 //data:{"quesSub":sub},
@@ -529,7 +487,7 @@
             $("#edit_qcName option").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate",
+                url:"${pageContext.request.contextPath}/question/getQuesCate",
                 data:
                 //"{quesSub:'"+sub+"',probQues:'"+probCate+"'}",
                 //data:{"quesSub":sub},
@@ -562,7 +520,7 @@
             $("#add_qcName option").remove();
             $.ajax({
                 type:"get",
-                url:"<%=basePath%>question/getQuesCate",
+                url:"${pageContext.request.contextPath}/question/getQuesCate",
                 data:
                 //"{quesSub:'"+sub+"',probQues:'"+probCate+"'}",
                 //data:{"quesSub":sub},
@@ -596,7 +554,7 @@
     //删除试题
     function deleteQues(p_id,id) {
         if(confirm('确实要删除该题目吗?')) {
-            $.post("<%=basePath%>question/deleteQues",{"p_id":p_id,"id":id},function(data){
+            $.post("${pageContext.request.contextPath}/question/deleteQues",{"p_id":p_id,"id":id},function(data){
                 alert("试题删除更新成功！");
                 window.location.reload();
             });
@@ -608,7 +566,7 @@
         $("#edit_blankNumDiv").hide();
         $.ajax({
             type:"get",
-            url:"<%=basePath%>question/editQuesInfo",
+            url:"${pageContext.request.contextPath}/question/editQuesInfo",
             data:{"p_id":p_id,"id":id},
             success:function(data) {
                 if(data.probCate.p_id=="1"){
@@ -663,14 +621,14 @@
 
     //跟新试题
     function updateQuestion() {
-        $.post("<%=basePath%>question/updateQuestion",$("#edit_question_form").serialize(),function(data){
+        $.post("${pageContext.request.contextPath}/question/updateQuestion",$("#edit_question_form").serialize(),function(data){
             alert("试题信息更新成功！");
             window.location.reload();
         });
     }
 
     function addQuestion() {
-        $.post("<%=basePath%>question/addQuestion",$("#add_form").serialize(),function(data){
+        $.post("${pageContext.request.contextPath}/question/addQuestion",$("#add_form").serialize(),function(data){
             alert("试题添加成功！");
             window.location.reload();
         });
@@ -680,7 +638,7 @@
     $(function () {
         $("#addMany_quesSub").change(function () {
             var c_id=$("#addMany_quesSub option:selected").val();
-            $.post("<%=basePath%>question/showQuesCate",{"c_id":c_id},function(data){
+            $.post("${pageContext.request.contextPath}/question/showQuesCate",{"c_id":c_id},function(data){
                 $("#addMany_qcNameDiv").empty();
                 for(var i in data){
                     $("#addMany_qcNameDiv").append("&nbsp&nbsp<input type=checkbox name=addMany_qcName value='"+data[i].q_id+"'FieldCount/>"+data[i].qcName+"&nbsp&nbsp&nbsp&nbsp");
@@ -695,7 +653,7 @@
     function checkAllBox(obj){
         var answer= document.getElementsByName("addMany_qcName");
         if(obj.checked==true){
-            for(var i=0;i<answer.length;i++){
+            for(var i = 0;i < answer.length;i++){
                 answer[i].checked = true;
             }
 
