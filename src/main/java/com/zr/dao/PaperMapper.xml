@@ -58,7 +58,7 @@
 
     <select id="queryPaperTempByPtId" parameterType="string" resultMap="queryAllPaperTempMap">
           SELECT * from papertemplet
-          WHERE pt_id=#{v}
+          WHERE pt_id=#{value}
     </select>
 
     <resultMap id="queryKnowledgeTempMap" type="KnowledgeTemplet">

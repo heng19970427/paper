@@ -1,8 +1,6 @@
 package com.zr.interceptor;
 
 import com.zr.pojo.User;
-import com.zr.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,26 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class AuthInterceptor implements HandlerInterceptor {
-    @Autowired
-    private UserService userService;
-
+public class AdminInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         boolean flag = false;
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if(user != null){
-            if(userService.findUserByNameAndPassword(user.getUserName(), user.getPassword()) == null){
-                session.removeAttribute("user");
-                request.setAttribute("error", "用户信息出错, 请重新登录!");
-                request.getRequestDispatcher("/user/login").forward(request,response);
-            }else {
-                flag = true;
-            }
+        if (user.getRoleName().equals("manager")){
+            flag = true;
         }else {
-            request.setAttribute("error", "登录状态错误, 请重新登录!");
-            request.getRequestDispatcher("/user/login").forward(request,response);
+            request.setAttribute("error", "用户权限不足, 只有管理员可以访问!");
+            request.getRequestDispatcher("/question/list").forward(request,response);
         }
         return flag;
     }
