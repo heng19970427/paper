@@ -3,6 +3,8 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="zr" uri="http://zr/common/" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -245,6 +247,7 @@
 
 <!-- 试题编辑对话框 -->
 <div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
+
      aria-labelledby="myModalLabel">
     <div class="modal-dialog" style="width: 1040px" role="document">
         <div class="modal-content">
@@ -333,6 +336,7 @@
             </div>
         </div>
     </div>
+
 </div>
 <!-- /#wrapper -->
 
@@ -488,8 +492,6 @@
                 type: "get",
                 url: "${pageContext.request.contextPath}/question/getQuesCate",
                 data:
-                //"{quesSub:'"+sub+"',probQues:'"+probCate+"'}",
-                //data:{"quesSub":sub},
                     {
                         "quesSub": sub,
                         "probQues": probCate
@@ -620,6 +622,7 @@
 
     //跟新试题
     function updateQuestion() {
+
         $.post("${pageContext.request.contextPath}/question/updateQuestion", $("#edit_question_form").serialize(), function (data) {
             alert("试题信息更新成功！");
             window.location.reload();
@@ -649,6 +652,7 @@
 
 
     //试题类型全选
+
     function checkAllBox(obj) {
         var answer = document.getElementsByName("addMany_qcName");
         if (obj.checked == true) {

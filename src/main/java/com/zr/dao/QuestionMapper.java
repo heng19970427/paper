@@ -7,8 +7,14 @@ import java.util.List;
 
 public interface QuestionMapper {
     List<QuesCate> queryQuesCate();
-    List<JudgeQues> queryJudgeQues();
-    List<FillBlankQues> queryFillBlankQues();
+    //查询所有判断题
+    List<JudgeQues> queryAllJudgeQues();
+    //查询所有填空题
+    List<FillBlankQues> queryAllFillBlankQues();
+    //查询所有选择题
+    List<SelectQues> queryAllSelectQues();
+    //查询所有大题
+    List<BigQues> queryAllBigQues();
     //查询一道选择题
     QuesQuery querySelectQues(String id);
     //查询一道填空题

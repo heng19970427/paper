@@ -47,6 +47,7 @@
     <resultMap id="querySelect" type="SelectQues">
         <result property="s_id" column="s_id"/>
         <result property="title" column="title"/>
+        <result property="option" column="option"/>
         <result property="difficultyLevel" column="difficultyLevel"/>
         <result property="answer" column="answer"/>
         <result property="selectedNum" column="selectedNum"/>
@@ -88,6 +89,11 @@
         s.qc_id=q.q_id
         WHERE
         s.s_id=#{v}
+    </select>
+
+    <!-- 查询所有选择题-->
+    <select id="queryAllSelectQues" resultMap="querySelect">
+        SELECT * from selectques ORDER by selectedNum
     </select>
 
     <resultMap id="queryJudge" type="JudgeQues">
@@ -134,6 +140,11 @@
         j.qc_id=q.q_id
         WHERE
         j.j_id=#{v}
+    </select>
+
+    <!-- 查询所有判断题-->
+    <select id="queryAllJudgeQues" resultMap="queryJudge">
+        SELECT * from judgeques
     </select>
 
     <resultMap id="queryFillBlank" type="FillBlankQues">
@@ -183,6 +194,11 @@
         f.f_id=#{v}
     </select>
 
+    <!-- 查询所有填空题-->
+    <select id="queryAllFillBlankQues" resultMap="queryFillBlank">
+        SELECT * from fillblankques
+    </select>
+
     <resultMap id="queryBig" type="BigQues">
         <result property="b_id" column="b_id"/>
         <result property="title" column="title"/>
@@ -227,6 +243,11 @@
         b.qc_id=q.q_id
         WHERE
         b.b_id=#{v}
+    </select>
+
+    <!-- 查询所有大题-->
+    <select id="queryAllBigQues" resultMap="queryBig">
+        SELECT * from bigques
     </select>
 
     <!-- 查询所有科目及其题目类型 -->

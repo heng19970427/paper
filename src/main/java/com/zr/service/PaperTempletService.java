@@ -17,25 +17,54 @@ public class PaperTempletService {
 
     @Autowired
     private PaperMapper paperMapper;
+    //查询某科目所有知识点
     public List<Knowledge> createTemp1(String c_id){
-
         return baseMapper.queryKnowledgeList(c_id);
     }
 
+    //保存试卷模板
     public void saveTemplet(PaperTemplet paperTemplet) {
         //插入试卷模板
         paperMapper.insertPaperTemplet(paperTemplet);
         //插入相关的知识点模板
         List<KnowledgeTemplet> knowledgeTempletList=paperTemplet.getKnowledgeTemplets();
-        Integer p_id=paperTemplet.getPt_id();
         for (KnowledgeTemplet templet: knowledgeTempletList) {
             templet.setPaperTemplet(paperTemplet);
             paperMapper.insertKnowledgeTemplet(templet);
         }
     }
 
+    //查询某科目所有试卷模板
     public List<PaperTemplet> queryAllPaperTemp(String c_id) {
         return paperMapper.queryAllPaperTemp(c_id);
+    }
+
+
+    public void delTemp(String pt_id) {
+        //删除与试卷模板相关的知识点模板
+        paperMapper.delKnowTemp(pt_id);
+        //删除试卷模板
+        paperMapper.delTemp(pt_id);
+    }
+
+    public PaperTemplet queryPaperTempByPtId(String pt_id) {
+        //封装模板
+        PaperTemplet paperTemplet=paperMapper.queryPaperTempByPtId(pt_id);
+        //封装知识点模板到试卷模板中
+        List<KnowledgeTemplet> knowledgeTempletList=paperMapper.queryKnowledgeTemp(pt_id);
+        paperTemplet.setKnowledgeTemplets(knowledgeTempletList);
+        return paperTemplet;
+    }
+
+    public void updatePaperTemp(PaperTemplet paperTemplet) {
+        //更新试卷模板
+        paperMapper.updatePaperTemplet(paperTemplet);
+        //更新相关的知识点模板
+        List<KnowledgeTemplet> knowledgeTempletList=paperTemplet.getKnowledgeTemplets();
+        for (KnowledgeTemplet templet: knowledgeTempletList) {
+            templet.setPaperTemplet(paperTemplet);
+            paperMapper.updateKnowledgeTemplet(templet);
+        }
     }
 
     public BaseMapper getBaseMapper() {
@@ -55,19 +84,4 @@ public class PaperTempletService {
     }
 
 
-    public void delTemp(String pt_id) {
-        //删除与试卷模板相关的知识点模板
-        paperMapper.delKnowTemp(pt_id);
-        //删除试卷模板
-        paperMapper.delTemp(pt_id);
-    }
-
-    public PaperTemplet editTemp(String pt_id) {
-        //封装模板
-        PaperTemplet paperTemplet=paperMapper.queryPaperTempByPtId(pt_id);
-        //封装知识点模板到试卷模板中
-        List<KnowledgeTemplet> knowledgeTempletList=paperMapper.queryKnowledgeTemp(pt_id);
-        paperTemplet.setKnowledgeTemplets(knowledgeTempletList);
-        return paperTemplet;
-    }
 }
