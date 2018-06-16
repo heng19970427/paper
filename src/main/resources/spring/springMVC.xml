@@ -62,7 +62,7 @@
     </bean>
     <bean id="freeMarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <!-- 模板的根目录 -->
-        <property name="templateLoaderPath" value="/templates/"/><!-- freemark模板存放的位置 -->
+        <property name="templateLoaderPath" value="/com/zr/ftl"/><!-- freemark模板存放的位置 -->
         <!-- 编码格式  -->
         <property name="defaultEncoding" value="utf-8"/><!-- freemark编码格式 -->
         <property name="freemarkerSettings">

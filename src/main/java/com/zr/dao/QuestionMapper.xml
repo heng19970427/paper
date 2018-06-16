@@ -144,7 +144,7 @@
 
     <!-- 查询所有判断题-->
     <select id="queryAllJudgeQues" resultMap="queryJudge">
-        SELECT * from judgeques
+        SELECT * from judgeques ORDER by selectedNum
     </select>
 
     <resultMap id="queryFillBlank" type="FillBlankQues">
@@ -196,7 +196,7 @@
 
     <!-- 查询所有填空题-->
     <select id="queryAllFillBlankQues" resultMap="queryFillBlank">
-        SELECT * from fillblankques
+        SELECT * from fillblankques ORDER by selectedNum
     </select>
 
     <resultMap id="queryBig" type="BigQues">
@@ -247,7 +247,7 @@
 
     <!-- 查询所有大题-->
     <select id="queryAllBigQues" resultMap="queryBig">
-        SELECT * from bigques
+        SELECT * from bigques ORDER by selectedNum
     </select>
 
     <!-- 查询所有科目及其题目类型 -->

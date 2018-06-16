@@ -32,20 +32,20 @@ public class PaperController {
         PaperTemplet paperTemplet = templetService.queryPaperTempByPtId(pt_id);
         //根据模板将生成的试卷信息封装成Map返回
         Map<String,String> map =paperService.createPaper(paperTemplet,paperName);
-        map.put("paperName","测试模板");
-        map.put("selectQuesScore","45");
-        map.put("selectQues","下列哪个标准类模板不能使用通用算法algorithm中定义的sort算法( )<w:br/>A.vector<w:br/>B.list<w:br/>C.deque<w:br/>D.string");
+
         File file = null;
         InputStream fin = null;
         ServletOutputStream out = null;
         try {
             //调用工具类WordGenerator的createDoc方法生成Word文档
-            file = WordGeneratorUtil.createDoc(map, paperName);
+            file = WordGeneratorUtil.createDoc(map,"paper1",paperName);
             fin = new FileInputStream(file);
             response.setCharacterEncoding("utf-8");
             response.setContentType("application/msword");
-            response.addHeader("Content-Disposition", "attachment;filename="+paperName+".doc");
+            //响应头post中文乱码问题
+            //response.addHeader("Content-Disposition", "attachment;filename="+paperName+".doc");
 
+            response.addHeader("Content-Disposition", "attachment;filename="+paperName+".doc");
             out = response.getOutputStream();
             byte[] buffer = new byte[1024];//缓冲区
             int bytesToRead = -1;
@@ -68,7 +68,7 @@ public class PaperController {
             }
 
         }
-        return "null";
+        return null;
     }
 
     public PaperTempletService getTempletService() {
