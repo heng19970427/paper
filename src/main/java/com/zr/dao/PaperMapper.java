@@ -13,10 +13,10 @@ public interface PaperMapper {
     List<PaperTemplet> queryAllPaperTemp(String c_id);
 
     //删除模板
-    void delTemp(String pt_id);
+    int delTemp(String pt_id);
 
     //删除知识点模板
-    void delKnowTemp(String pt_id);
+    int delKnowTemp(String pt_id);
 
     PaperTemplet queryPaperTempByPtId(String pt_id);
 

@@ -7,7 +7,9 @@ import com.zr.pojo.KnowledgeTemplet;
 import com.zr.pojo.PaperTemplet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.security.interfaces.ECKey;
 import java.util.List;
 
 @Service
@@ -39,14 +41,16 @@ public class PaperTempletService {
         return paperMapper.queryAllPaperTemp(c_id);
     }
 
-
-    public void delTemp(String pt_id) {
-        //删除与试卷模板相关的知识点模板
-        paperMapper.delKnowTemp(pt_id);
-        //删除试卷模板
-        paperMapper.delTemp(pt_id);
+    @Transactional
+    public int delTemp(String pt_id) {
+        //删除与试卷模板相关的知识点模板            //删除试卷模板
+        if (paperMapper.delKnowTemp(pt_id)!=0 && paperMapper.delTemp(pt_id)!=0)
+            return 1;
+        else
+            return 0;
     }
 
+    @Transactional
     public PaperTemplet queryPaperTempByPtId(String pt_id) {
         //封装模板
         PaperTemplet paperTemplet=paperMapper.queryPaperTempByPtId(pt_id);
@@ -56,6 +60,7 @@ public class PaperTempletService {
         return paperTemplet;
     }
 
+    @Transactional
     public void updatePaperTemp(PaperTemplet paperTemplet) {
         //更新试卷模板
         paperMapper.updatePaperTemplet(paperTemplet);

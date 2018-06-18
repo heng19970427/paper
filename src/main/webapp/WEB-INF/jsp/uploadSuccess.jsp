@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>上传成功 - 智能试卷</title>
 </head>
 <body>
 <%--header start--%>

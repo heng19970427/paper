@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>用户管理</title>
+    <title>用户管理 - 智能试卷</title>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
@@ -333,6 +333,7 @@
                     data-act="add">
                 添加用户
             </button>
+            <a href="#" data-toggle="modal"></a>
         </div>
         <table class="table"
                id="table-users"

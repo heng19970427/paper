@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>400页面</title>
+    <title>400页面 - 智能试卷</title>
 </head>
 <body >
 <jsp:include page="header.jsp"/>
