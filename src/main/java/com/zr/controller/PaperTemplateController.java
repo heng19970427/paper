@@ -41,24 +41,23 @@ public class PaperTemplateController {
         return templetService.queryAllPaperTemp(c_id);
     }
 
-    @RequestMapping("createTemp1")
+    @RequestMapping("getKnowledgeList")
     public @ResponseBody
-    List<Knowledge> createTemp1(PaperTemplet paperTemplet){
-        servletContext.setAttribute("paperTemplet",paperTemplet);
-        return templetService.createTemp1(String.valueOf(paperTemplet.getCourse().getC_id()));
+    List<Knowledge> getKnowledgeList(String c_id){
+        return templetService.createTemp1(c_id);
     }
 
-    @RequestMapping("createTemp2")
-    public @ResponseBody
-    String createTemp2(PaperTemplet paperTemplet2){
-        PaperTemplet paperTemplet1= (PaperTemplet) servletContext.getAttribute("paperTemplet");
-        //将知识点模板封装到试卷模板
-        paperTemplet1.setKnowledgeTemplets(paperTemplet2.getKnowledgeTemplets());
-        //将试卷模板持久化
-        templetService.saveTemplet(paperTemplet1);
-        //清空appliction域的模板
-        servletContext.removeAttribute("paperTemplet");
-        return "OK";
+    @RequestMapping("createTemp")
+    public @ResponseBody Object createTemp(PaperTemplet paperTemplet){
+        Response response = new Response();
+        if (templetService.saveTemplet(paperTemplet)){
+            response.setCode(0);
+            response.setMsg("保存成功!");
+        }else {
+            response.setCode(1);
+            response.setMsg("保存失败!");
+        }
+        return response;
     }
 
     @RequestMapping("delTemp")
@@ -75,17 +74,16 @@ public class PaperTemplateController {
     }
 
     @RequestMapping("updateTemp")
-    public @ResponseBody
-    String updateTemp(PaperTemplet paperTemplet2){
-        PaperTemplet paperTemplet1= (PaperTemplet) servletContext.getAttribute("paperTemplet");
-        //将知识点模板封装到试卷模板
-
-        paperTemplet1.setKnowledgeTemplets(paperTemplet2.getKnowledgeTemplets());
-        //将试卷模板持久化
-        templetService.updatePaperTemp(paperTemplet1);
-        //清空appliction域的试卷模板
-        servletContext.removeAttribute("paperTemplet");
-        return "OK";
+    public @ResponseBody Object updateTemp(PaperTemplet paperTemplet){
+        Response resp = new Response();
+        if (templetService.updatePaperTemp(paperTemplet)){
+            resp.setCode(0);
+            resp.setMsg("更新成功");
+        }else {
+            resp.setCode(1);
+            resp.setError("更新失败");
+        }
+        return resp;
     }
 
     @RequestMapping("editTemp")

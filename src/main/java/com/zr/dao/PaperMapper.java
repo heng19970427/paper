@@ -6,9 +6,9 @@ import com.zr.pojo.PaperTemplet;
 import java.util.List;
 
 public interface PaperMapper {
-    void insertPaperTemplet(PaperTemplet paperTemplet);
+    int insertPaperTemplet(PaperTemplet paperTemplet);
 
-    void insertKnowledgeTemplet(KnowledgeTemplet templet);
+    int insertKnowledgeTemplet(KnowledgeTemplet templet);
 
     List<PaperTemplet> queryAllPaperTemp(String c_id);
 
@@ -22,9 +22,9 @@ public interface PaperMapper {
 
     List<KnowledgeTemplet> queryKnowledgeTemp(String pt_id);
 
-    void updatePaperTemplet(PaperTemplet paperTemplet);
+    int updatePaperTemplet(PaperTemplet paperTemplet);
 
-    void updateKnowledgeTemplet(KnowledgeTemplet templet);
+    int updateKnowledgeTemplet(KnowledgeTemplet templet);
 
     //测试函数
     //返回十道选择题的字符串

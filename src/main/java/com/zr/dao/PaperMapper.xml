@@ -80,6 +80,7 @@
         SELECT kt.kt_id,kt.pt_id,kt.selectQuesNum,kt.fillBlankQuesNum,kt.judgeQuesNum,kt.bigQuesNum,k.k_id,k.knowledgeName from knowledgetemplet kt
         LEFT JOIN knowledge k
         on kt.k_id=k.k_id
+        where kt.pt_id = #{pt_id}
     </select>
 
 

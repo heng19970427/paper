@@ -25,15 +25,17 @@ public class PaperTempletService {
     }
 
     //保存试卷模板
-    public void saveTemplet(PaperTemplet paperTemplet) {
+    public boolean saveTemplet(PaperTemplet paperTemplet) {
+        boolean result = true;
         //插入试卷模板
-        paperMapper.insertPaperTemplet(paperTemplet);
+        if (paperMapper.insertPaperTemplet(paperTemplet)<=0) result=false;
         //插入相关的知识点模板
         List<KnowledgeTemplet> knowledgeTempletList=paperTemplet.getKnowledgeTemplets();
         for (KnowledgeTemplet templet: knowledgeTempletList) {
             templet.setPaperTemplet(paperTemplet);
-            paperMapper.insertKnowledgeTemplet(templet);
+            if (paperMapper.insertKnowledgeTemplet(templet)<=0) result=false;
         }
+        return result;
     }
 
     //查询某科目所有试卷模板
@@ -61,15 +63,17 @@ public class PaperTempletService {
     }
 
     @Transactional
-    public void updatePaperTemp(PaperTemplet paperTemplet) {
+    public boolean updatePaperTemp(PaperTemplet paperTemplet) {
+        boolean result = true;
         //更新试卷模板
-        paperMapper.updatePaperTemplet(paperTemplet);
+        if (paperMapper.updatePaperTemplet(paperTemplet) != 1) result=false;
         //更新相关的知识点模板
         List<KnowledgeTemplet> knowledgeTempletList=paperTemplet.getKnowledgeTemplets();
         for (KnowledgeTemplet templet: knowledgeTempletList) {
             templet.setPaperTemplet(paperTemplet);
-            paperMapper.updateKnowledgeTemplet(templet);
+            if (paperMapper.updateKnowledgeTemplet(templet) != 1) result=false;
         }
+        return result;
     }
 
     public BaseMapper getBaseMapper() {
