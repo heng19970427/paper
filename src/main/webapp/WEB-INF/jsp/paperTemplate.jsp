@@ -13,7 +13,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>题库管理</title>
-
 </head>
 
 <body>

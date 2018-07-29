@@ -1,6 +1,7 @@
 package com.zr.dao;
 
 import com.zr.pojo.KnowledgeTemplet;
+import com.zr.pojo.Paper;
 import com.zr.pojo.PaperTemplet;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public interface PaperMapper {
     void updatePaperTemplet(PaperTemplet paperTemplet);
 
     void updateKnowledgeTemplet(KnowledgeTemplet templet);
+
+    void insertPaper(Paper paper);
 
     //测试函数
     //返回十道选择题的字符串

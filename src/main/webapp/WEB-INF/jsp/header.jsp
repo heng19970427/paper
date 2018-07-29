@@ -67,6 +67,7 @@
                 <li><a href="${pageContext.request.contextPath}/question/list">题库管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/paperTemplate/showTemp">模板管理</a></li>
                 <li><a href="#">试卷仓库</a></li>
+                <li><a href="${pageContext.request.contextPath}/subject/">科目管理</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:if test="${sessionScope.user.r_id == 2}">

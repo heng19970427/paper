@@ -2,9 +2,16 @@ package com.zr.pojo;
 
 public class Paper {
     private Integer pa_id;
-    private PaperAllQues paperAllQues;
-    private PaperTemplet paperTemplet;
+    private String path;
     private String paperName;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public Integer getPa_id() {
         return pa_id;
@@ -14,21 +21,6 @@ public class Paper {
         this.pa_id = pa_id;
     }
 
-    public PaperAllQues getPaperAllQues() {
-        return paperAllQues;
-    }
-
-    public void setPaperAllQues(PaperAllQues paperAllQues) {
-        this.paperAllQues = paperAllQues;
-    }
-
-    public PaperTemplet getPaperTemplet() {
-        return paperTemplet;
-    }
-
-    public void setPaperTemplet(PaperTemplet paperTemplet) {
-        this.paperTemplet = paperTemplet;
-    }
 
     public String getPaperName() {
         return paperName;

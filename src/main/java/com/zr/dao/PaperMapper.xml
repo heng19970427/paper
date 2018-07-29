@@ -145,4 +145,8 @@
             kt_id=#{kt_id}
         </where>
     </update>
+
+    <insert id="insertPaper" parameterType="paper">
+        INSERT into paper values(null,#{path},#{paperName})
+    </insert>
 </mapper>

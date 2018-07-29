@@ -1,5 +1,6 @@
 package com.zr.service;
 
+import com.zr.dao.PaperMapper;
 import com.zr.dao.QuestionMapper;
 import com.zr.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,19 +10,16 @@ import java.util.*;
 
 @Service
 public class PaperService {
-    private Map<String,String> testMap;
 
     @Autowired
     private QuestionMapper questionMapper;
 
+    @Autowired
+    private PaperMapper paperMapper;
+
     public Map<String,String> createPaper(PaperTemplet paperTemplet,String paperName){
         //保存了试卷信息的map
         Map<String,String> map=new HashMap<String, String>();
-        Paper paper=new Paper();
-        PaperAllQues paperAllQues=new PaperAllQues();
-
-        paper.setPaperName(paperName);
-        paper.setPaperTemplet(paperTemplet);
         map.put("paperName",paperName);
 
         //试卷难度系数
@@ -167,11 +165,11 @@ public class PaperService {
                 repeatList.add(num);
                 String[] options = selectQues.getOption().split("###");
                 char opLetter='A';
-                sb.append(i+"."+selectQues.getTitle()+"<w:br/>");
+                sb.append(i+"."+(selectQues.getTitle().replace("<", "&lt;"))+"<w:br/>");
                 answersb.append(i+"."+selectQues.getAnswer()+"  ");
                 //生成选项
                 for (int j = 1; j <options.length ; j++) {
-                    sb.append(opLetter+"."+options[j]+"<w:br/>");
+                    sb.append(opLetter+"."+options[j].replace("<", "&lt;")+"<w:br/>");
                     opLetter++;
                 }
             }
@@ -286,7 +284,11 @@ public class PaperService {
         }
         targetQues=sb.toString();
         targetQues=targetQues.replace("&", "&#38;");
+        targetQues=targetQues.replace("<", "&lt;");
+        targetQues=targetQues.replace(">", "&gt;");
         targetQuesAnswer=answersb.toString();
+        targetQuesAnswer=targetQuesAnswer.replace("<","&lt;");
+        targetQuesAnswer=targetQuesAnswer.replace(">","&gt;");
         targetQuesAnswer=targetQuesAnswer.replace("&", "&#38;");
         //大题答案
         map.put("bigQuesAnswer",targetQuesAnswer);
@@ -301,11 +303,23 @@ public class PaperService {
         return map;
     }
 
+    public void savePaper(Paper paper) {
+        paperMapper.insertPaper(paper);
+    }
+
     public QuestionMapper getQuestionMapper(){
         return questionMapper;
     }
 
     public void setQuestionMapper(QuestionMapper questionMapper){
         this.questionMapper = questionMapper;
+    }
+
+    public PaperMapper getPaperMapper() {
+        return paperMapper;
+    }
+
+    public void setPaperMapper(PaperMapper paperMapper) {
+        this.paperMapper = paperMapper;
     }
 }

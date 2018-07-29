@@ -60,12 +60,10 @@ public class UserController {
     public Object getAllUser(){
         return userService.getAllUser();
     }
-
     @RequestMapping("man/userManage")
     public String list(){
         return "userManage";
     }
-
     @RequestMapping("man/delUserByUID")
     @ResponseBody
     public Object del(@RequestParam("u_id")int u_id,HttpSession session){
