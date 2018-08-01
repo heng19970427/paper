@@ -3,6 +3,7 @@ package com.zr.controller;
 import com.zr.pojo.Course;
 import com.zr.pojo.Knowledge;
 import com.zr.pojo.PaperTemplet;
+import com.zr.pojo.Response;
 import com.zr.service.BaseService;
 import com.zr.service.PaperTempletService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,55 +28,62 @@ public class PaperTemplateController {
     private BaseService baseService;
 
     @RequestMapping("showTemp")
-    public String showPage(String c_id,Model model){
+    public String showPage(Model model){
         List<Course> courseList=baseService.queryAllCourse();
-        List<PaperTemplet> paperTempletList=templetService.queryAllPaperTemp(c_id);
-
         model.addAttribute("courseList",courseList);
-        model.addAttribute("paperTempletList",paperTempletList);
-
         return "paperTemplate";
     }
 
-    @RequestMapping("createTemp1")
-    public @ResponseBody
-    List<Knowledge> createTemp1(PaperTemplet paperTemplet){
-        servletContext.setAttribute("paperTemplet",paperTemplet);
-        return templetService.createTemp1(String.valueOf(paperTemplet.getCourse().getC_id()));
+    @RequestMapping("getTemps")
+    @ResponseBody
+    public Object getTemps(String c_id){
+        System.out.println(c_id);
+        return templetService.queryAllPaperTemp(c_id);
     }
 
-    @RequestMapping("createTemp2")
+    @RequestMapping("getKnowledgeList")
     public @ResponseBody
-    String createTemp2(PaperTemplet paperTemplet2){
-        PaperTemplet paperTemplet1= (PaperTemplet) servletContext.getAttribute("paperTemplet");
-        //将知识点模板封装到试卷模板
-        paperTemplet1.setKnowledgeTemplets(paperTemplet2.getKnowledgeTemplets());
-        //将试卷模板持久化
-        templetService.saveTemplet(paperTemplet1);
-        //清空appliction域的模板
-        servletContext.removeAttribute("paperTemplet");
-        return "OK";
+    List<Knowledge> getKnowledgeList(String c_id){
+        return templetService.createTemp1(c_id);
+    }
+
+    @RequestMapping("createTemp")
+    public @ResponseBody Object createTemp(PaperTemplet paperTemplet){
+        Response response = new Response();
+        if (templetService.saveTemplet(paperTemplet)){
+            response.setCode(0);
+            response.setMsg("保存成功!");
+        }else {
+            response.setCode(1);
+            response.setMsg("保存失败!");
+        }
+        return response;
     }
 
     @RequestMapping("delTemp")
-    public @ResponseBody
-    String delTemp(String pt_id){
-        templetService.delTemp(pt_id);
-        return "OK";
+    public @ResponseBody Object delTemp(String pt_id){
+        Response resp = new Response();
+        if (templetService.delTemp(pt_id) == 1){
+            resp.setCode(0);
+            resp.setMsg("删除成功");
+        }else {
+            resp.setCode(1);
+            resp.setError("删除失败");
+        }
+        return resp;
     }
 
     @RequestMapping("updateTemp")
-    public @ResponseBody
-    String updateTemp(PaperTemplet paperTemplet2){
-        PaperTemplet paperTemplet1= (PaperTemplet) servletContext.getAttribute("paperTemplet");
-        //将知识点模板封装到试卷模板
-
-        paperTemplet1.setKnowledgeTemplets(paperTemplet2.getKnowledgeTemplets());
-        //将试卷模板持久化
-        templetService.updatePaperTemp(paperTemplet1);
-        //清空appliction域的试卷模板
-        servletContext.removeAttribute("paperTemplet");
-        return "OK";
+    public @ResponseBody Object updateTemp(PaperTemplet paperTemplet){
+        Response resp = new Response();
+        if (templetService.updatePaperTemp(paperTemplet)){
+            resp.setCode(0);
+            resp.setMsg("更新成功");
+        }else {
+            resp.setCode(1);
+            resp.setError("更新失败");
+        }
+        return resp;
     }
 
     @RequestMapping("editTemp")

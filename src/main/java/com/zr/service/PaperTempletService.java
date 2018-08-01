@@ -7,7 +7,9 @@ import com.zr.pojo.KnowledgeTemplet;
 import com.zr.pojo.PaperTemplet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.security.interfaces.ECKey;
 import java.util.List;
 
 @Service
@@ -23,15 +25,17 @@ public class PaperTempletService {
     }
 
     //保存试卷模板
-    public void saveTemplet(PaperTemplet paperTemplet) {
+    public boolean saveTemplet(PaperTemplet paperTemplet) {
+        boolean result = true;
         //插入试卷模板
-        paperMapper.insertPaperTemplet(paperTemplet);
+        if (paperMapper.insertPaperTemplet(paperTemplet)<=0) result=false;
         //插入相关的知识点模板
         List<KnowledgeTemplet> knowledgeTempletList=paperTemplet.getKnowledgeTemplets();
         for (KnowledgeTemplet templet: knowledgeTempletList) {
             templet.setPaperTemplet(paperTemplet);
-            paperMapper.insertKnowledgeTemplet(templet);
+            if (paperMapper.insertKnowledgeTemplet(templet)<=0) result=false;
         }
+        return result;
     }
 
     //查询某科目所有试卷模板
@@ -39,14 +43,16 @@ public class PaperTempletService {
         return paperMapper.queryAllPaperTemp(c_id);
     }
 
-
-    public void delTemp(String pt_id) {
-        //删除与试卷模板相关的知识点模板
-        paperMapper.delKnowTemp(pt_id);
-        //删除试卷模板
-        paperMapper.delTemp(pt_id);
+    @Transactional
+    public int delTemp(String pt_id) {
+        //删除与试卷模板相关的知识点模板            //删除试卷模板
+        if (paperMapper.delKnowTemp(pt_id)!=0 && paperMapper.delTemp(pt_id)!=0)
+            return 1;
+        else
+            return 0;
     }
 
+    @Transactional
     public PaperTemplet queryPaperTempByPtId(String pt_id) {
         //封装模板
         PaperTemplet paperTemplet=paperMapper.queryPaperTempByPtId(pt_id);
@@ -56,15 +62,18 @@ public class PaperTempletService {
         return paperTemplet;
     }
 
-    public void updatePaperTemp(PaperTemplet paperTemplet) {
+    @Transactional
+    public boolean updatePaperTemp(PaperTemplet paperTemplet) {
+        boolean result = true;
         //更新试卷模板
-        paperMapper.updatePaperTemplet(paperTemplet);
+        if (paperMapper.updatePaperTemplet(paperTemplet) != 1) result=false;
         //更新相关的知识点模板
         List<KnowledgeTemplet> knowledgeTempletList=paperTemplet.getKnowledgeTemplets();
         for (KnowledgeTemplet templet: knowledgeTempletList) {
             templet.setPaperTemplet(paperTemplet);
-            paperMapper.updateKnowledgeTemplet(templet);
+            if (paperMapper.updateKnowledgeTemplet(templet) != 1) result=false;
         }
+        return result;
     }
 
     public BaseMapper getBaseMapper() {
