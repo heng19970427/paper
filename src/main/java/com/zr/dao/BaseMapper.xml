@@ -38,12 +38,7 @@
         SELECT * from probcate
     </select>
 
-    <select id="queryKnowledgeList" parameterType="string" resultType="knowledge">
-        SELECT * from knowledge
-        <where>
-          c_id=#{v}
-        </where>
-    </select>
+
 
 
 

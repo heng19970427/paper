@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface QuestionMapper {
-    List<QuesCate> queryQuesCate();
+    List<Quescate> queryQuesCate();
     //查询所有判断题
     List<JudgeQues> queryAllJudgeQues();
     //查询所有填空题

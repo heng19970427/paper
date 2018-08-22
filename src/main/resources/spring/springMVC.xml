@@ -16,10 +16,10 @@
 
     <!--默认servlet 处理静态资源响应-->
     <mvc:default-servlet-handler/>
-
-    <!--配置拦截器-->
+    <!--
+    配置拦截器
     <mvc:interceptors>
-        <!--登录状态检查拦截-->
+        -登录状态检查拦截-
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/user/login"/>
@@ -30,12 +30,13 @@
             <mvc:exclude-mapping path="/error/**"/>
             <bean class="com.zr.interceptor.AuthInterceptor"/>
         </mvc:interceptor>
-        <!--管理员权限访问检查-->
+        -管理员权限访问检查-
         <mvc:interceptor>
             <mvc:mapping path="/user/man/**"/>
             <bean class="com.zr.interceptor.AdminInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+    -->
     <!--配置视图解析器-->
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>

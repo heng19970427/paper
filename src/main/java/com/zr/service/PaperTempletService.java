@@ -1,6 +1,7 @@
 package com.zr.service;
 
 import com.zr.dao.BaseMapper;
+import com.zr.dao.KnowledgeMapper;
 import com.zr.dao.PaperMapper;
 import com.zr.pojo.Knowledge;
 import com.zr.pojo.KnowledgeTemplet;
@@ -18,10 +19,13 @@ public class PaperTempletService {
     private BaseMapper baseMapper;
 
     @Autowired
+    private KnowledgeMapper knowledgeMapper;
+
+    @Autowired
     private PaperMapper paperMapper;
     //查询某科目所有知识点
-    public List<Knowledge> createTemp1(String c_id){
-        return baseMapper.queryKnowledgeList(c_id);
+    public List<Knowledge> createTemp1(int c_id){
+        return knowledgeMapper.queryKnowledgeList(c_id);
     }
 
     //保存试卷模板

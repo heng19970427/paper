@@ -5,7 +5,7 @@ public class FillBlankQues extends QuesQuery{
     Course course;
     Knowledge knowledge;
     ProbCate probCate;
-    QuesCate quesCate;
+    Quescate quesCate;
     String title;
     Integer difficultyLevel;
     String answer;
@@ -38,11 +38,12 @@ public class FillBlankQues extends QuesQuery{
         this.probCate = probCate;
     }
 
-    public QuesCate getQuesCate() {
+    @Override
+    public Quescate getQuesCate() {
         return quesCate;
     }
 
-    public void setQuesCate(QuesCate quesCate) {
+    public void setQuesCate(Quescate quesCate) {
         this.quesCate = quesCate;
     }
 

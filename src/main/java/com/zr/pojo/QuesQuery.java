@@ -5,7 +5,7 @@ public class QuesQuery {
     private Course course;
     private Knowledge knowledge;
     private ProbCate probCate;
-    private QuesCate quesCate;
+    private Quescate quesCate;
     private String title;
     private Integer difficultyLevel;
     private String answer;
@@ -38,11 +38,11 @@ public class QuesQuery {
         this.probCate = probCate;
     }
 
-    public QuesCate getQuesCate() {
+    public Quescate getQuesCate() {
         return quesCate;
     }
 
-    public void setQuesCate(QuesCate quesCate) {
+    public void setQuesCate(Quescate quesCate) {
         this.quesCate = quesCate;
     }
 

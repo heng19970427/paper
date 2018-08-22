@@ -5,7 +5,7 @@ public class SelectQues extends QuesQuery{
     private Course course;
     private Knowledge knowledge;
     private ProbCate probCate;
-    private QuesCate quesCate;
+    private Quescate quesCate;
     private String title;
     private Integer difficultyLevel;
     private String answer;
@@ -69,13 +69,13 @@ public class SelectQues extends QuesQuery{
         this.probCate = probCate;
     }
 
-
-    public QuesCate getQuesCate() {
+    @Override
+    public Quescate getQuesCate() {
         return quesCate;
     }
 
-
-    public void setQuesCate(QuesCate quesCate) {
+    @Override
+    public void setQuesCate(Quescate quesCate) {
         this.quesCate = quesCate;
     }
 

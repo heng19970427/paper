@@ -1,6 +1,6 @@
 package com.zr.pojo;
 
-public class QuesCate {
+public class Quescate {
     private int q_id;
     private ProbCate probCate;
     private String qcName;

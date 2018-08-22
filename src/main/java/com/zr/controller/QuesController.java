@@ -3,6 +3,7 @@ package com.zr.controller;
 import com.zr.pojo.*;
 import com.zr.resolver.MyExcelViewResolver;
 import com.zr.service.BaseService;
+import com.zr.service.KnowledgeService;
 import com.zr.service.QuestionService;
 import com.zr.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class QuesController {
     private QuestionService questionService;
     @Autowired
     private BaseService baseService;
+
+    @Autowired
+    private KnowledgeService knowledgeService;
     //.后面的可以不写
     @RequestMapping("list")
     public String showPage(QueryVo qv,Model model){
@@ -63,8 +67,8 @@ public class QuesController {
     @RequestMapping("getQuesCate")
     public @ResponseBody
     List<List> getQuesCate(QueryVo qv,Model model) {
-        List<QuesCate> quesCateList = baseService.queryQuesCate(qv);
-        List<Knowledge> knowledgeList=baseService.queryKnowledgeList(qv.getQuesSub());
+        List<Quescate> quesCateList = baseService.queryQuesCate(qv);
+        List<Knowledge> knowledgeList=knowledgeService.queryKnowledgeList(Integer.valueOf(qv.getQuesSub()));
         List<List> quesAndKnow=new ArrayList<>();
         quesAndKnow.add(quesCateList);
         quesAndKnow.add(knowledgeList);
@@ -103,13 +107,13 @@ public class QuesController {
 
     @RequestMapping("showQuesCate")
     public @ResponseBody
-    List<QuesCate> showQuesCate(String c_id){
+    List<Quescate> showQuesCate(String c_id){
         return baseService.queryQuesCateByCId(c_id);
     }
 
     @RequestMapping("tempDownload")
     public ModelAndView tempDownload(String[] addMany_qcName, ModelMap model){
-        List<QuesCate> quesCateList=baseService.createExcelTemp(addMany_qcName);
+        List<Quescate> quesCateList=baseService.createExcelTemp(addMany_qcName);
         model.addAttribute("quesCateList",quesCateList);
         return new ModelAndView(new MyExcelViewResolver(),model);
     }

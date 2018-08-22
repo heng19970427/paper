@@ -43,7 +43,7 @@ public class PaperTemplateController {
 
     @RequestMapping("getKnowledgeList")
     public @ResponseBody
-    List<Knowledge> getKnowledgeList(String c_id){
+    List<Knowledge> getKnowledgeList(Integer c_id){
         return templetService.createTemp1(c_id);
     }
 

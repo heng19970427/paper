@@ -48,6 +48,7 @@
 <%--serializejson--%>
 <script src="https://cdn.bootcss.com/jquery.serializeJSON/2.9.0/jquery.serializejson.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminCss.css">
+<link href="${pageContext.request.contextPath}/css/dashboard.css" rel="stylesheet">
 <%--css and js end--%>
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -67,7 +68,7 @@
                 <li><a href="${pageContext.request.contextPath}/question/list">题库管理</a></li>
                 <li><a href="${pageContext.request.contextPath}/paperTemplate/showTemp">模板管理</a></li>
                 <li><a href="#">试卷仓库</a></li>
-                <li><a href="${pageContext.request.contextPath}/subject/">科目管理</a></li>
+                <li><a href="${pageContext.request.contextPath}/course/courseInfo">科目管理</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <c:if test="${sessionScope.user.r_id == 2}">

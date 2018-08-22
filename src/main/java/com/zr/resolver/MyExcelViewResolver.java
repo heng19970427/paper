@@ -1,6 +1,6 @@
 package com.zr.resolver;
 
-import com.zr.pojo.QuesCate;
+import com.zr.pojo.Quescate;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -21,7 +21,7 @@ public class MyExcelViewResolver extends AbstractXlsView{
         OutputStream outputStream = response.getOutputStream();
         HSSFWorkbook book = (HSSFWorkbook) workbook;
 
-        List<QuesCate> quesCateList= (List<QuesCate>) model.get("quesCateList");
+        List<Quescate> quesCateList= (List<Quescate>) model.get("quesCateList");
         HSSFSheet[] sheets=new HSSFSheet[quesCateList.size()];
 
         //记录填空题标号

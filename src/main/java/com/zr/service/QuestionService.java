@@ -13,7 +13,7 @@ import java.util.List;
 public class QuestionService {
     @Autowired
     private QuestionMapper mapper;
-    public List<QuesCate> queryQuesCate() {
+    public List<Quescate> queryQuesCate() {
         return mapper.queryQuesCate();
     }
 

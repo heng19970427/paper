@@ -6,11 +6,8 @@ import com.zr.pojo.*;
 import com.zr.utils.ReadExcelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,16 +28,12 @@ public class BaseService {
         return baseMapper.queryAllProbCate();
     }
     //根据c_id和p_id查询具体类型
-    public List<QuesCate> queryQuesCate(QueryVo qv){
+    public List<Quescate> queryQuesCate(QueryVo qv){
         return baseMapper.queryQuesCate(qv);
     }
 
-    public List<Knowledge> queryKnowledgeList(String c_id){
-        return baseMapper.queryKnowledgeList(c_id);
-    }
-
     //根据c_id查询具体类型
-    public List<QuesCate> queryQuesCateByCId(String c_id){
+    public List<Quescate> queryQuesCateByCId(String c_id){
         return baseMapper.queryQuesCateByCId(c_id);
     }
 
@@ -52,11 +45,11 @@ public class BaseService {
         this.baseMapper = baseMapper;
     }
 
-    public List<QuesCate> createExcelTemp(String[] qcNames) {
+    public List<Quescate> createExcelTemp(String[] qcNames) {
         //根据数组创建QuesCate集合
-        List<QuesCate> quesCateList=new ArrayList<QuesCate>();
+        List<Quescate> quesCateList=new ArrayList<Quescate>();
         for (int i = 0; i <qcNames.length ; i++) {
-            QuesCate quesCate=baseMapper.queryQuesCateByQId(qcNames[i]);
+            Quescate quesCate=baseMapper.queryQuesCateByQId(qcNames[i]);
             quesCateList.add(quesCate);
         }
         return quesCateList;
@@ -72,7 +65,7 @@ public class BaseService {
         * */
         //创建excel读取工具
         //1.根据试题科目查询类型，封装QuesCate
-        List<QuesCate> quesCateList = baseMapper.queryQuesCateByCId(c_id);
+        List<Quescate> quesCateList = baseMapper.queryQuesCateByCId(c_id);
 
         ReadExcelUtils readExcelUtils=new ReadExcelUtils(fileName,excel);
         int pages = readExcelUtils.getNumPages();
@@ -82,7 +75,7 @@ public class BaseService {
                 Map<Integer, Map<Integer, Object>> excelContent = readExcelUtils.readExcelContent(j);
                 String sheetName = readExcelUtils.getSheetName(j);
                 boolean flag=false;
-                for (QuesCate cate:quesCateList) {
+                for (Quescate cate:quesCateList) {
                     //判断是否存在该题型，若存在则插入
                     if((cate.getQcName()).equals(sheetName)){
                         //取出p_id，判断插入的表

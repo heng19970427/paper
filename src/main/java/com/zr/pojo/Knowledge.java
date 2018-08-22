@@ -2,7 +2,7 @@ package com.zr.pojo;
 
 public class Knowledge {
     int k_id;
-    String courseName;
+    Course course;
     String knowledgeName;
 
     public int getK_id() {
@@ -13,12 +13,12 @@ public class Knowledge {
         this.k_id = k_id;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public String getKnowledgeName() {
