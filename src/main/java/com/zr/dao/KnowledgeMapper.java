@@ -1,20 +1,34 @@
 package com.zr.dao;
 
-
 import com.zr.pojo.Knowledge;
+import com.zr.pojo.KnowledgeExample;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 public interface KnowledgeMapper {
-    List<Knowledge> queryAllKnowledge();
+    int countByExample(KnowledgeExample example);
 
-    void deleteKnowledge(int k_id);
+    int deleteByExample(KnowledgeExample example);
 
-    void insertKnowledge(Knowledge knowledge);
+    int deleteByPrimaryKey(Integer kId);
 
-    void updateKnowledge(Knowledge knowledge);
+    int insert(Knowledge record);
 
-    //根据课程id查询所有知识点
-    List<Knowledge> queryKnowledgeList(@Param("c_id") Integer c_id);
+    int insertSelective(Knowledge record);
+
+    List<Knowledge> selectByExample(KnowledgeExample example);
+
+    Knowledge selectByPrimaryKey(Integer kId);
+
+    int updateByExampleSelective(@Param("record") Knowledge record, @Param("example") KnowledgeExample example);
+
+    int updateByExample(@Param("record") Knowledge record, @Param("example") KnowledgeExample example);
+
+    int updateByPrimaryKeySelective(Knowledge record);
+
+    int updateByPrimaryKey(Knowledge record);
+
+    List<Map> selectKnowledgeOption(Knowledge knowledge);
 }

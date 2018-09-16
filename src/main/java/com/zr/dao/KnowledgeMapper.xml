@@ -1,56 +1,205 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zr.dao.KnowledgeMapper">
-    <!--ResultMap-->
-    <resultMap id="knowledgeMap" type="knowledge">
-        <id property="k_id" column="k_id"/>
-        <result property="knowledgeName" column="knowledgeName"/>
-        <association property="course" javaType="Course">
-            <id property="c_id" column="c_id"/>
-            <result property="courseName" column="courseName"/>
-        </association>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.dao.KnowledgeMapper" >
+
+    <resultMap id="BaseResultMap" type="com.zr.pojo.Knowledge" >
+        <id column="k_id" property="kId" jdbcType="INTEGER" />
+        <result column="c_id" property="cId" jdbcType="INTEGER" />
+        <result column="knowledgeName" property="knowledgename" jdbcType="VARCHAR" />
     </resultMap>
 
-    <select id="queryAllKnowledge" resultMap="knowledgeMap">
-        SELECT k.c_id,c.courseName,k.k_id,k.knowledgeName
-        from knowledge k
-        LEFT JOIN course c ON k.c_id = c.c_id
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        k_id, c_id, knowledgeName
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.pojo.KnowledgeExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from knowledge
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
     </select>
 
-    <select id="queryKnowledgeList" resultMap="knowledgeMap">
-        SELECT k.c_id,c.courseName,k.k_id,k.knowledgeName
-        from knowledge k
-        LEFT JOIN course c ON k.c_id = c.c_id
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from knowledge
+        where k_id = #{kId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from knowledge
+        where k_id = #{kId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.zr.pojo.KnowledgeExample" >
+        delete from knowledge
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.zr.pojo.Knowledge" >
+        insert into knowledge (k_id, c_id, knowledgeName
+            )
+        values (#{kId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, #{knowledgename,jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zr.pojo.Knowledge" >
+        insert into knowledge
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="kId != null" >
+                k_id,
+            </if>
+            <if test="cId != null" >
+                c_id,
+            </if>
+            <if test="knowledgename != null" >
+                knowledgeName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="kId != null" >
+                #{kId,jdbcType=INTEGER},
+            </if>
+            <if test="cId != null" >
+                #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="knowledgename != null" >
+                #{knowledgename,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.zr.pojo.KnowledgeExample" resultType="java.lang.Integer" >
+        select count(*) from knowledge
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update knowledge
+        <set >
+            <if test="record.kId != null" >
+                k_id = #{record.kId,jdbcType=INTEGER},
+            </if>
+            <if test="record.cId != null" >
+                c_id = #{record.cId,jdbcType=INTEGER},
+            </if>
+            <if test="record.knowledgename != null" >
+                knowledgeName = #{record.knowledgename,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update knowledge
+        set k_id = #{record.kId,jdbcType=INTEGER},
+            c_id = #{record.cId,jdbcType=INTEGER},
+            knowledgeName = #{record.knowledgename,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zr.pojo.Knowledge" >
+        update knowledge
+        <set >
+            <if test="cId != null" >
+                c_id = #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="knowledgename != null" >
+                knowledgeName = #{knowledgename,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where k_id = #{kId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zr.pojo.Knowledge" >
+        update knowledge
+        set c_id = #{cId,jdbcType=INTEGER},
+            knowledgeName = #{knowledgename,jdbcType=VARCHAR}
+        where k_id = #{kId,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectKnowledgeOption" resultType="java.util.Map">
+        SELECT k_id id,knowledgeName text from knowledge
         <where>
-            <if test="c_id!=null">
-                k.c_id=#{c_id}
+            <if test="cId!=null">
+                c_id=#{cId}
             </if>
         </where>
     </select>
-
-    <delete id="deleteKnowledge" parameterType="int">
-        DELETE FROM knowledge
-        WHERE k_id=#{k_id}
-    </delete>
-
-    <insert id="insertKnowledge" parameterType="knowledge">
-        INSERT INTO knowledge
-        VALUES (
-        null,
-        #{course.c_id},
-        #{knowledgeName}
-        )
-    </insert>
-
-    <update id="updateKnowledge" parameterType="knowledge">
-        UPDATE knowledge
-        <set>
-            <if test="knowledgeName!=null and knowledgeName!=''">
-                knowledgeName=#{knowledgeName}
-            </if>
-        </set>
-        WHERE k_id=#{k_id}
-    </update>
 </mapper>

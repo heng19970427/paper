@@ -1,35 +1,30 @@
 package com.zr.dao;
 
-import com.zr.pojo.KnowledgeTemplet;
 import com.zr.pojo.Paper;
-import com.zr.pojo.PaperTemplet;
-
+import com.zr.pojo.PaperExample;
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface PaperMapper {
-    int insertPaperTemplet(PaperTemplet paperTemplet);
+    int countByExample(PaperExample example);
 
-    int insertKnowledgeTemplet(KnowledgeTemplet templet);
+    int deleteByExample(PaperExample example);
 
-    List<PaperTemplet> queryAllPaperTemp(String c_id);
+    int deleteByPrimaryKey(Integer paId);
 
-    //删除模板
-    int delTemp(String pt_id);
+    int insert(Paper record);
 
-    //删除知识点模板
-    int delKnowTemp(String pt_id);
+    int insertSelective(Paper record);
 
-    PaperTemplet queryPaperTempByPtId(String pt_id);
+    List<Paper> selectByExample(PaperExample example);
 
-    List<KnowledgeTemplet> queryKnowledgeTemp(String pt_id);
+    Paper selectByPrimaryKey(Integer paId);
 
-    int updatePaperTemplet(PaperTemplet paperTemplet);
+    int updateByExampleSelective(@Param("record") Paper record, @Param("example") PaperExample example);
 
-    int updateKnowledgeTemplet(KnowledgeTemplet templet);
+    int updateByExample(@Param("record") Paper record, @Param("example") PaperExample example);
 
-    void insertPaper(Paper paper);
+    int updateByPrimaryKeySelective(Paper record);
 
-    //测试函数
-    //返回十道选择题的字符串
-
+    int updateByPrimaryKey(Paper record);
 }

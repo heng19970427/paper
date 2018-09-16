@@ -3,9 +3,14 @@ package com.zr.dao;
 import com.zr.pojo.Quescate;
 import com.zr.pojo.QuescateExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface QuescateMapper {
+    int countByExample(QuescateExample example);
+
+    int deleteByExample(QuescateExample example);
 
     int deleteByPrimaryKey(Integer qId);
 
@@ -24,4 +29,8 @@ public interface QuescateMapper {
     int updateByPrimaryKeySelective(Quescate record);
 
     int updateByPrimaryKey(Quescate record);
+
+    List<Map> selectQuescateListSelect();
+
+    List<Map> selectQuescateListSelect(Quescate quescate);
 }

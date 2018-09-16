@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.dao.BigquesMapper" >
+    <resultMap id="BaseResultMap" type="com.zr.pojo.Bigques" >
+        <id column="b_id" property="bId" jdbcType="INTEGER" />
+        <result column="k_id" property="kId" jdbcType="INTEGER" />
+        <result column="c_id" property="cId" jdbcType="INTEGER" />
+        <result column="p_id" property="pId" jdbcType="INTEGER" />
+        <result column="qc_id" property="qcId" jdbcType="INTEGER" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="option" property="option" jdbcType="VARCHAR" />
+        <result column="difficultyLevel" property="difficultylevel" jdbcType="INTEGER" />
+        <result column="answer" property="answer" jdbcType="VARCHAR" />
+        <result column="selectedNum" property="selectednum" jdbcType="INTEGER" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        b_id, k_id, c_id, p_id, qc_id, title, `option`, difficultyLevel, answer, selectedNum,
+        description
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.pojo.BigquesExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from bigques
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from bigques
+        where b_id = #{bId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from bigques
+        where b_id = #{bId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.zr.pojo.BigquesExample" >
+        delete from bigques
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.zr.pojo.Bigques" >
+        insert into bigques (b_id, k_id, c_id, 
+            p_id, qc_id, title, 
+            `option`, difficultyLevel, answer,
+            selectedNum, description)
+        values (#{bId,jdbcType=INTEGER}, #{kId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, 
+            #{pId,jdbcType=INTEGER}, #{qcId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+            #{option,jdbcType=VARCHAR}, #{difficultylevel,jdbcType=INTEGER}, #{answer,jdbcType=VARCHAR}, 
+            #{selectednum,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zr.pojo.Bigques" >
+        insert into bigques
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="bId != null" >
+                b_id,
+            </if>
+            <if test="kId != null" >
+                k_id,
+            </if>
+            <if test="cId != null" >
+                c_id,
+            </if>
+            <if test="pId != null" >
+                p_id,
+            </if>
+            <if test="qcId != null" >
+                qc_id,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="option != null" >
+                `option`,
+            </if>
+            <if test="difficultylevel != null" >
+                difficultyLevel,
+            </if>
+            <if test="answer != null" >
+                answer,
+            </if>
+            <if test="selectednum != null" >
+                selectedNum,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="bId != null" >
+                #{bId,jdbcType=INTEGER},
+            </if>
+            <if test="kId != null" >
+                #{kId,jdbcType=INTEGER},
+            </if>
+            <if test="cId != null" >
+                #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="pId != null" >
+                #{pId,jdbcType=INTEGER},
+            </if>
+            <if test="qcId != null" >
+                #{qcId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null" >
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="option != null" >
+                #{option,jdbcType=VARCHAR},
+            </if>
+            <if test="difficultylevel != null" >
+                #{difficultylevel,jdbcType=INTEGER},
+            </if>
+            <if test="answer != null" >
+                #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="selectednum != null" >
+                #{selectednum,jdbcType=INTEGER},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.zr.pojo.BigquesExample" resultType="java.lang.Integer" >
+        select count(*) from bigques
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update bigques
+        <set >
+            <if test="record.bId != null" >
+                b_id = #{record.bId,jdbcType=INTEGER},
+            </if>
+            <if test="record.kId != null" >
+                k_id = #{record.kId,jdbcType=INTEGER},
+            </if>
+            <if test="record.cId != null" >
+                c_id = #{record.cId,jdbcType=INTEGER},
+            </if>
+            <if test="record.pId != null" >
+                p_id = #{record.pId,jdbcType=INTEGER},
+            </if>
+            <if test="record.qcId != null" >
+                qc_id = #{record.qcId,jdbcType=INTEGER},
+            </if>
+            <if test="record.title != null" >
+                title = #{record.title,jdbcType=VARCHAR},
+            </if>
+            <if test="record.option != null" >
+                `option` = #{record.option,jdbcType=VARCHAR},
+            </if>
+            <if test="record.difficultylevel != null" >
+                difficultyLevel = #{record.difficultylevel,jdbcType=INTEGER},
+            </if>
+            <if test="record.answer != null" >
+                answer = #{record.answer,jdbcType=VARCHAR},
+            </if>
+            <if test="record.selectednum != null" >
+                selectedNum = #{record.selectednum,jdbcType=INTEGER},
+            </if>
+            <if test="record.description != null" >
+                description = #{record.description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update bigques
+        set b_id = #{record.bId,jdbcType=INTEGER},
+            k_id = #{record.kId,jdbcType=INTEGER},
+            c_id = #{record.cId,jdbcType=INTEGER},
+            p_id = #{record.pId,jdbcType=INTEGER},
+            qc_id = #{record.qcId,jdbcType=INTEGER},
+            title = #{record.title,jdbcType=VARCHAR},
+        `option` = #{record.option,jdbcType=VARCHAR},
+            difficultyLevel = #{record.difficultylevel,jdbcType=INTEGER},
+            answer = #{record.answer,jdbcType=VARCHAR},
+            selectedNum = #{record.selectednum,jdbcType=INTEGER},
+            description = #{record.description,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zr.pojo.Bigques" >
+        update bigques
+        <set >
+            <if test="kId != null" >
+                k_id = #{kId,jdbcType=INTEGER},
+            </if>
+            <if test="cId != null" >
+                c_id = #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="pId != null" >
+                p_id = #{pId,jdbcType=INTEGER},
+            </if>
+            <if test="qcId != null" >
+                qc_id = #{qcId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null" >
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="option != null" >
+                `option` = #{option,jdbcType=VARCHAR},
+            </if>
+            <if test="difficultylevel != null" >
+                difficultyLevel = #{difficultylevel,jdbcType=INTEGER},
+            </if>
+            <if test="answer != null" >
+                answer = #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="selectednum != null" >
+                selectedNum = #{selectednum,jdbcType=INTEGER},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where b_id = #{bId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zr.pojo.Bigques" >
+        update bigques
+        set k_id = #{kId,jdbcType=INTEGER},
+            c_id = #{cId,jdbcType=INTEGER},
+            p_id = #{pId,jdbcType=INTEGER},
+            qc_id = #{qcId,jdbcType=INTEGER},
+            title = #{title,jdbcType=VARCHAR},
+            `option` = #{option,jdbcType=VARCHAR},
+            difficultyLevel = #{difficultylevel,jdbcType=INTEGER},
+            answer = #{answer,jdbcType=VARCHAR},
+            selectedNum = #{selectednum,jdbcType=INTEGER},
+            description = #{description,jdbcType=VARCHAR}
+        where b_id = #{bId,jdbcType=INTEGER}
+    </update>
+</mapper>

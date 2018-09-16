@@ -10,8 +10,6 @@ public interface BaseMapper{
     //查询所有试题类型
     List<ProbCate> queryAllProbCate();
 
-    //根据c_id和p_id查询具体类型集合
-    List<Quescate> queryQuesCate(QueryVo qv);
     //根据c_id查询具体类型集合
     List<Quescate> queryQuesCateByCId(String c_id);
     //根据q_id查询具体类型

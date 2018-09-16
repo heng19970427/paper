@@ -13,10 +13,21 @@
     </delete>
     <update id="updateCourse" parameterType="Course">
         UPDATE course
-        set c_id=#{c_id},
+        SET
         courseName=#{courseName}
+        WHERE c_id=#{c_id}
     </update>
     <select id="queryAllCourse" resultType="Course">
         SELECT * FROM course
     </select>
+
+    <select id="selectCourseById" resultType="Course">
+        SELECT * FROM course
+        WHERE c_id=#{c_id}
+    </select>
+
+    <select id="selectCourseOptionList" resultType="java.util.Map">
+        SELECT c_id id,courseName text FROM course
+    </select>
+
 </mapper>

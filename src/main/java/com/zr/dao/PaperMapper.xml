@@ -1,153 +1,226 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.dao.PaperMapper" >
 
-<mapper namespace="com.zr.dao.PaperMapper">
-
-    <insert id="insertPaperTemplet" parameterType="PaperTemplet" useGeneratedKeys="true" keyProperty="pt_id" keyColumn="pt_id">
-      insert into papertemplet values(null,#{course.c_id},#{templetName},#{difficultyLevel},#{score},#{judgeQuesNum},#{selectQuesNum},#{bigQuesNum},#{fillBlankQuesNum},#{judgeQuesScore},#{selectQuesScore},#{bigQuesScore},#{fillBlankQuesScore})
-    </insert>
-
-    <insert id="insertKnowledgeTemplet" parameterType="KnowledgeTemplet">
-        insert into knowledgetemplet values(null,#{paperTemplet.pt_id},#{knowledge.k_id},#{judgeQuesNum},#{selectQuesNum},#{fillBlankQuesNum},#{bigQuesNum})
-    </insert>
-
-    <resultMap id="queryAllPaperTempMap" type="PaperTemplet">
-        <id property="pt_id" column="pt_id"/>
-        <result property="templetName" column="templetName"/>
-        <result property="difficultyLevel" column="difficultyLevel"/>
-        <result property="score" column="score"/>
-        <result property="judgeQuesNum" column="judgeQuesNum"/>
-        <result property="selectQuesNum" column="selectQuesNum"/>
-        <result property="bigQuesNum" column="bigQuesNum"/>
-        <result property="fillBlankQuesNum" column="fillBlankQuesNum"/>
-        <result property="judgeQuesScore" column="judgeQuesScore"/>
-        <result property="selectQuesScore" column="selectQuesScore"/>
-        <result property="bigQuesScore" column="bigQuesScore" />
-        <result property="fillBlankQuesScore" column="fillBlankQuesScore" />
-        <result property="fillBlankQuesScore" column="fillBlankQuesScore" />
-        <association property="course" javaType="Course">
-            <id property="c_id" column="c_id"/>
-            <result property="courseName" column="courseName"/>
-        </association>
+    <resultMap id="BaseResultMap" type="com.zr.pojo.Paper" >
+        <id column="pa_id" property="paId" jdbcType="INTEGER" />
+        <result column="path" property="path" jdbcType="VARCHAR" />
+        <result column="paperName" property="papername" jdbcType="VARCHAR" />
+        <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+        <result column="paperDesc" property="paperdesc" jdbcType="VARCHAR" />
     </resultMap>
 
-    <select id="queryAllPaperTemp" parameterType="string" resultMap="queryAllPaperTempMap">
-        SELECT p.pt_id,p.c_id,c.courseName,p.templetName,p.difficultyLevel
-        from papertemplet p
-        LEFT JOIN course c
-        on p.c_id=c.c_id
-        <where>
-            <if test="_parameter!=null and _parameter!=''">
-                c.c_id=#{v}
-            </if>
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
         </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        pa_id, path, paperName, createTime, paperDesc
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.pojo.PaperExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from paper
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
     </select>
 
-    <delete id="delTemp" parameterType="string">
-        DELETE from papertemplet
-        WHERE pt_id=#{value}
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from paper
+        where pa_id = #{paId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from paper
+        where pa_id = #{paId,jdbcType=INTEGER}
     </delete>
 
-    <delete id="delKnowTemp" parameterType="string">
-        DELETE from knowledgetemplet
-        where pt_id=#{v}
+    <delete id="deleteByExample" parameterType="com.zr.pojo.PaperExample" >
+        delete from paper
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
     </delete>
 
+    <insert id="insert" parameterType="com.zr.pojo.Paper" >
+        insert into paper (pa_id, path, paperName, 
+            createTime, paperDesc)
+        values (#{paId,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{papername,jdbcType=VARCHAR}, 
+            #{createtime,jdbcType=TIMESTAMP}, #{paperdesc,jdbcType=VARCHAR})
+    </insert>
 
-    <select id="queryPaperTempByPtId" parameterType="string" resultMap="queryAllPaperTempMap">
-          SELECT * from papertemplet
-          WHERE pt_id=#{value}
+    <insert id="insertSelective" parameterType="com.zr.pojo.Paper" >
+        insert into paper
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="paId != null" >
+                pa_id,
+            </if>
+            <if test="path != null" >
+                path,
+            </if>
+            <if test="papername != null" >
+                paperName,
+            </if>
+            <if test="createtime != null" >
+                createTime,
+            </if>
+            <if test="paperdesc != null" >
+                paperDesc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="paId != null" >
+                #{paId,jdbcType=INTEGER},
+            </if>
+            <if test="path != null" >
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="papername != null" >
+                #{papername,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null" >
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="paperdesc != null" >
+                #{paperdesc,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.zr.pojo.PaperExample" resultType="java.lang.Integer" >
+        select count(*) from paper
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
     </select>
 
-    <resultMap id="queryKnowledgeTempMap" type="KnowledgeTemplet">
-        <id property="kt_id" column="kt_id" />
-        <result property="selectQuesNum" column="selectQuesNum" />
-        <result property="fillBlankQuesNum" column="fillBlankQuesNum" />
-        <result property="judgeQuesNum" column="judgeQuesNum" />
-        <result property="bigQuesNum" column="bigQuesNum" />
-        <association property="knowledge" javaType="Knowledge">
-            <id property="k_id" column="k_id"/>
-            <result property="knowledgeName" column="knowledgeName" />
-        </association>
-        <association property="paperTemplet" javaType="PaperTemplet">
-            <id property="pt_id" column="pt_id"/>
-        </association>
-    </resultMap>
-
-    <select id="queryKnowledgeTemp" parameterType="string" resultMap="queryKnowledgeTempMap">
-        SELECT kt.kt_id,kt.pt_id,kt.selectQuesNum,kt.fillBlankQuesNum,kt.judgeQuesNum,kt.bigQuesNum,k.k_id,k.knowledgeName from knowledgetemplet kt
-        LEFT JOIN knowledge k
-        on kt.k_id=k.k_id
-        where kt.pt_id = #{pt_id}
-    </select>
-
-
-    <update id="updatePaperTemplet" parameterType="PaperTemplet">
-        UPDATE papertemplet
-        <set>
-            <if test="course.c_id!=null">
-                c_id=#{course.c_id},
+    <update id="updateByExampleSelective" parameterType="map" >
+        update paper
+        <set >
+            <if test="record.paId != null" >
+                pa_id = #{record.paId,jdbcType=INTEGER},
             </if>
-            <if test="score!=null">
-                score=#{score},
+            <if test="record.path != null" >
+                path = #{record.path,jdbcType=VARCHAR},
             </if>
-            <if test="difficultyLevel!=null">
-                difficultyLevel=#{difficultyLevel},
+            <if test="record.papername != null" >
+                paperName = #{record.papername,jdbcType=VARCHAR},
             </if>
-            <if test="judgeQuesNum!=null">
-                judgeQuesNum=#{judgeQuesNum},
+            <if test="record.createtime != null" >
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
             </if>
-            <if test="selectQuesNum!=null">
-                selectQuesNum=#{selectQuesNum},
-            </if>
-            <if test="fillBlankQuesNum!=null">
-                fillBlankQuesNum=#{fillBlankQuesNum},
-            </if>
-            <if test="bigQuesNum!=null">
-                bigQuesNum=#{bigQuesNum},
-            </if>
-            <if test="judgeQuesScore!=null">
-                judgeQuesScore=#{judgeQuesScore},
-            </if>
-            <if test="selectQuesScore!=null">
-                selectQuesScore=#{selectQuesScore},
-            </if>
-            <if test="fillBlankQuesScore!=null">
-                fillBlankQuesScore=#{fillBlankQuesScore},
-            </if>
-            <if test="bigQuesScore!=null">
-                bigQuesScore=#{bigQuesScore}
+            <if test="record.paperdesc != null" >
+                paperDesc = #{record.paperdesc,jdbcType=VARCHAR},
             </if>
         </set>
-        <where>
-            pt_id=#{pt_id}
-        </where>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
     </update>
 
-    <update id="updateKnowledgeTemplet" parameterType="KnowledgeTemplet">
-      update knowledgetemplet
-      <set>
-          <if test="judgeQuesNum!=null">
-              judgeQuesNum=#{judgeQuesNum},
-          </if>
-          <if test="selectQuesNum!=null">
-              selectQuesNum=#{selectQuesNum},
-          </if>
-          <if test="fillBlankQuesNum!=null">
-              fillBlankQuesNum=#{fillBlankQuesNum},
-          </if>
-          <if test="bigQuesNum!=null">
-              bigQuesNum=#{bigQuesNum}
-          </if>
-      </set>
-        <where>
-            kt_id=#{kt_id}
-        </where>
+    <update id="updateByExample" parameterType="map" >
+        update paper
+        set pa_id = #{record.paId,jdbcType=INTEGER},
+            path = #{record.path,jdbcType=VARCHAR},
+            paperName = #{record.papername,jdbcType=VARCHAR},
+            createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            paperDesc = #{record.paperdesc,jdbcType=VARCHAR}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
     </update>
 
-    <insert id="insertPaper" parameterType="paper">
-        INSERT into paper values(null,#{path},#{paperName})
-    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zr.pojo.Paper" >
+        update paper
+        <set >
+            <if test="path != null" >
+                path = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="papername != null" >
+                paperName = #{papername,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null" >
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="paperdesc != null" >
+                paperDesc = #{paperdesc,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where pa_id = #{paId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zr.pojo.Paper" >
+        update paper
+        set path = #{path,jdbcType=VARCHAR},
+            paperName = #{papername,jdbcType=VARCHAR},
+            createTime = #{createtime,jdbcType=TIMESTAMP},
+            paperDesc = #{paperdesc,jdbcType=VARCHAR}
+        where pa_id = #{paId,jdbcType=INTEGER}
+    </update>
 </mapper>

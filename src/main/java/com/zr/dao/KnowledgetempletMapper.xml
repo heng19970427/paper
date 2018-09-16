@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.dao.KnowledgetempletMapper" >
+
+    <resultMap id="BaseResultMap" type="com.zr.pojo.Knowledgetemplet" >
+        <id column="kt_id" property="ktId" jdbcType="INTEGER" />
+        <result column="pt_id" property="ptId" jdbcType="INTEGER" />
+        <result column="k_id" property="kId" jdbcType="INTEGER" />
+        <result column="judgeQuesNum" property="judgequesnum" jdbcType="INTEGER" />
+        <result column="selectQuesNum" property="selectquesnum" jdbcType="INTEGER" />
+        <result column="fillBlankQuesNum" property="fillblankquesnum" jdbcType="INTEGER" />
+        <result column="bigQuesNum" property="bigquesnum" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        kt_id, pt_id, k_id, judgeQuesNum, selectQuesNum, fillBlankQuesNum, bigQuesNum
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.pojo.KnowledgetempletExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from knowledgetemplet
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from knowledgetemplet
+        where kt_id = #{ktId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from knowledgetemplet
+        where kt_id = #{ktId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.zr.pojo.KnowledgetempletExample" >
+        delete from knowledgetemplet
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.zr.pojo.Knowledgetemplet" >
+        insert into knowledgetemplet (kt_id, pt_id, k_id, 
+            judgeQuesNum, selectQuesNum, fillBlankQuesNum, 
+            bigQuesNum)
+        values (#{ktId,jdbcType=INTEGER}, #{ptId,jdbcType=INTEGER}, #{kId,jdbcType=INTEGER}, 
+            #{judgequesnum,jdbcType=INTEGER}, #{selectquesnum,jdbcType=INTEGER}, #{fillblankquesnum,jdbcType=INTEGER}, 
+            #{bigquesnum,jdbcType=INTEGER})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zr.pojo.Knowledgetemplet" >
+        insert into knowledgetemplet
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="ktId != null" >
+                kt_id,
+            </if>
+            <if test="ptId != null" >
+                pt_id,
+            </if>
+            <if test="kId != null" >
+                k_id,
+            </if>
+            <if test="judgequesnum != null" >
+                judgeQuesNum,
+            </if>
+            <if test="selectquesnum != null" >
+                selectQuesNum,
+            </if>
+            <if test="fillblankquesnum != null" >
+                fillBlankQuesNum,
+            </if>
+            <if test="bigquesnum != null" >
+                bigQuesNum,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="ktId != null" >
+                #{ktId,jdbcType=INTEGER},
+            </if>
+            <if test="ptId != null" >
+                #{ptId,jdbcType=INTEGER},
+            </if>
+            <if test="kId != null" >
+                #{kId,jdbcType=INTEGER},
+            </if>
+            <if test="judgequesnum != null" >
+                #{judgequesnum,jdbcType=INTEGER},
+            </if>
+            <if test="selectquesnum != null" >
+                #{selectquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="fillblankquesnum != null" >
+                #{fillblankquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="bigquesnum != null" >
+                #{bigquesnum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.zr.pojo.KnowledgetempletExample" resultType="java.lang.Integer" >
+        select count(*) from knowledgetemplet
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update knowledgetemplet
+        <set >
+            <if test="record.ktId != null" >
+                kt_id = #{record.ktId,jdbcType=INTEGER},
+            </if>
+            <if test="record.ptId != null" >
+                pt_id = #{record.ptId,jdbcType=INTEGER},
+            </if>
+            <if test="record.kId != null" >
+                k_id = #{record.kId,jdbcType=INTEGER},
+            </if>
+            <if test="record.judgequesnum != null" >
+                judgeQuesNum = #{record.judgequesnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.selectquesnum != null" >
+                selectQuesNum = #{record.selectquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.fillblankquesnum != null" >
+                fillBlankQuesNum = #{record.fillblankquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.bigquesnum != null" >
+                bigQuesNum = #{record.bigquesnum,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update knowledgetemplet
+        set kt_id = #{record.ktId,jdbcType=INTEGER},
+            pt_id = #{record.ptId,jdbcType=INTEGER},
+            k_id = #{record.kId,jdbcType=INTEGER},
+            judgeQuesNum = #{record.judgequesnum,jdbcType=INTEGER},
+            selectQuesNum = #{record.selectquesnum,jdbcType=INTEGER},
+            fillBlankQuesNum = #{record.fillblankquesnum,jdbcType=INTEGER},
+            bigQuesNum = #{record.bigquesnum,jdbcType=INTEGER}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zr.pojo.Knowledgetemplet" >
+        update knowledgetemplet
+        <set >
+            <if test="ptId != null" >
+                pt_id = #{ptId,jdbcType=INTEGER},
+            </if>
+            <if test="kId != null" >
+                k_id = #{kId,jdbcType=INTEGER},
+            </if>
+            <if test="judgequesnum != null" >
+                judgeQuesNum = #{judgequesnum,jdbcType=INTEGER},
+            </if>
+            <if test="selectquesnum != null" >
+                selectQuesNum = #{selectquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="fillblankquesnum != null" >
+                fillBlankQuesNum = #{fillblankquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="bigquesnum != null" >
+                bigQuesNum = #{bigquesnum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where kt_id = #{ktId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zr.pojo.Knowledgetemplet" >
+        update knowledgetemplet
+        set pt_id = #{ptId,jdbcType=INTEGER},
+            k_id = #{kId,jdbcType=INTEGER},
+            judgeQuesNum = #{judgequesnum,jdbcType=INTEGER},
+            selectQuesNum = #{selectquesnum,jdbcType=INTEGER},
+            fillBlankQuesNum = #{fillblankquesnum,jdbcType=INTEGER},
+            bigQuesNum = #{bigquesnum,jdbcType=INTEGER}
+        where kt_id = #{ktId,jdbcType=INTEGER}
+    </update>
+</mapper>

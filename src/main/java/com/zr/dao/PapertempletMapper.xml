@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zr.dao.PapertempletMapper" >
+
+    <resultMap id="BaseResultMap" type="com.zr.pojo.Papertemplet" >
+        <id column="pt_id" property="ptId" jdbcType="INTEGER" />
+        <result column="c_id" property="cId" jdbcType="INTEGER" />
+        <result column="knowledge_ids" property="knowledgeIds" jdbcType="VARCHAR" />
+        <result column="quescate_ids" property="quescateIds" jdbcType="VARCHAR" />
+        <result column="templetName" property="templetname" jdbcType="VARCHAR" />
+        <result column="difficultyLevel" property="difficultylevel" jdbcType="INTEGER" />
+        <result column="score" property="score" jdbcType="INTEGER" />
+        <result column="judgeQuesNum" property="judgequesnum" jdbcType="INTEGER" />
+        <result column="selectQuesNum" property="selectquesnum" jdbcType="INTEGER" />
+        <result column="bigQuesNum" property="bigquesnum" jdbcType="INTEGER" />
+        <result column="fillBlankQuesNum" property="fillblankquesnum" jdbcType="INTEGER" />
+        <result column="judgeQuesScore" property="judgequesscore" jdbcType="INTEGER" />
+        <result column="selectQuesScore" property="selectquesscore" jdbcType="INTEGER" />
+        <result column="bigQuesScore" property="bigquesscore" jdbcType="INTEGER" />
+        <result column="fillBlankQuesScore" property="fillblankquesscore" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        pt_id, c_id, knowledge_ids, quescate_ids, templetName, difficultyLevel, score, judgeQuesNum, 
+        selectQuesNum, bigQuesNum, fillBlankQuesNum, judgeQuesScore, selectQuesScore, bigQuesScore, 
+        fillBlankQuesScore
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zr.pojo.PapertempletExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from papertemplet
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from papertemplet
+        where pt_id = #{ptId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from papertemplet
+        where pt_id = #{ptId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.zr.pojo.PapertempletExample" >
+        delete from papertemplet
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.zr.pojo.Papertemplet" >
+        insert into papertemplet (pt_id, c_id, knowledge_ids, 
+            quescate_ids, templetName, difficultyLevel, 
+            score, judgeQuesNum, selectQuesNum, 
+            bigQuesNum, fillBlankQuesNum, judgeQuesScore, 
+            selectQuesScore, bigQuesScore, fillBlankQuesScore
+            )
+        values (#{ptId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, #{knowledgeIds,jdbcType=VARCHAR}, 
+            #{quescateIds,jdbcType=VARCHAR}, #{templetname,jdbcType=VARCHAR}, #{difficultylevel,jdbcType=INTEGER}, 
+            #{score,jdbcType=INTEGER}, #{judgequesnum,jdbcType=INTEGER}, #{selectquesnum,jdbcType=INTEGER}, 
+            #{bigquesnum,jdbcType=INTEGER}, #{fillblankquesnum,jdbcType=INTEGER}, #{judgequesscore,jdbcType=INTEGER}, 
+            #{selectquesscore,jdbcType=INTEGER}, #{bigquesscore,jdbcType=INTEGER}, #{fillblankquesscore,jdbcType=INTEGER}
+            )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zr.pojo.Papertemplet" >
+        <selectKey resultType="Integer" keyColumn="pt_id" keyProperty="ptId">
+            SELECT LAST_INSERT_ID() AS ptId;
+        </selectKey>
+        insert into papertemplet
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="ptId != null" >
+                pt_id,
+            </if>
+            <if test="cId != null" >
+                c_id,
+            </if>
+            <if test="knowledgeIds != null" >
+                knowledge_ids,
+            </if>
+            <if test="quescateIds != null" >
+                quescate_ids,
+            </if>
+            <if test="templetname != null" >
+                templetName,
+            </if>
+            <if test="difficultylevel != null" >
+                difficultyLevel,
+            </if>
+            <if test="score != null" >
+                score,
+            </if>
+            <if test="judgequesnum != null" >
+                judgeQuesNum,
+            </if>
+            <if test="selectquesnum != null" >
+                selectQuesNum,
+            </if>
+            <if test="bigquesnum != null" >
+                bigQuesNum,
+            </if>
+            <if test="fillblankquesnum != null" >
+                fillBlankQuesNum,
+            </if>
+            <if test="judgequesscore != null" >
+                judgeQuesScore,
+            </if>
+            <if test="selectquesscore != null" >
+                selectQuesScore,
+            </if>
+            <if test="bigquesscore != null" >
+                bigQuesScore,
+            </if>
+            <if test="fillblankquesscore != null" >
+                fillBlankQuesScore,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="ptId != null" >
+                #{ptId,jdbcType=INTEGER},
+            </if>
+            <if test="cId != null" >
+                #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="knowledgeIds != null" >
+                #{knowledgeIds,jdbcType=VARCHAR},
+            </if>
+            <if test="quescateIds != null" >
+                #{quescateIds,jdbcType=VARCHAR},
+            </if>
+            <if test="templetname != null" >
+                #{templetname,jdbcType=VARCHAR},
+            </if>
+            <if test="difficultylevel != null" >
+                #{difficultylevel,jdbcType=INTEGER},
+            </if>
+            <if test="score != null" >
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="judgequesnum != null" >
+                #{judgequesnum,jdbcType=INTEGER},
+            </if>
+            <if test="selectquesnum != null" >
+                #{selectquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="bigquesnum != null" >
+                #{bigquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="fillblankquesnum != null" >
+                #{fillblankquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="judgequesscore != null" >
+                #{judgequesscore,jdbcType=INTEGER},
+            </if>
+            <if test="selectquesscore != null" >
+                #{selectquesscore,jdbcType=INTEGER},
+            </if>
+            <if test="bigquesscore != null" >
+                #{bigquesscore,jdbcType=INTEGER},
+            </if>
+            <if test="fillblankquesscore != null" >
+                #{fillblankquesscore,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.zr.pojo.PapertempletExample" resultType="java.lang.Integer" >
+        select count(*) from papertemplet
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update papertemplet
+        <set >
+            <if test="record.ptId != null" >
+                pt_id = #{record.ptId,jdbcType=INTEGER},
+            </if>
+            <if test="record.cId != null" >
+                c_id = #{record.cId,jdbcType=INTEGER},
+            </if>
+            <if test="record.knowledgeIds != null" >
+                knowledge_ids = #{record.knowledgeIds,jdbcType=VARCHAR},
+            </if>
+            <if test="record.quescateIds != null" >
+                quescate_ids = #{record.quescateIds,jdbcType=VARCHAR},
+            </if>
+            <if test="record.templetname != null" >
+                templetName = #{record.templetname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.difficultylevel != null" >
+                difficultyLevel = #{record.difficultylevel,jdbcType=INTEGER},
+            </if>
+            <if test="record.score != null" >
+                score = #{record.score,jdbcType=INTEGER},
+            </if>
+            <if test="record.judgequesnum != null" >
+                judgeQuesNum = #{record.judgequesnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.selectquesnum != null" >
+                selectQuesNum = #{record.selectquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.bigquesnum != null" >
+                bigQuesNum = #{record.bigquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.fillblankquesnum != null" >
+                fillBlankQuesNum = #{record.fillblankquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="record.judgequesscore != null" >
+                judgeQuesScore = #{record.judgequesscore,jdbcType=INTEGER},
+            </if>
+            <if test="record.selectquesscore != null" >
+                selectQuesScore = #{record.selectquesscore,jdbcType=INTEGER},
+            </if>
+            <if test="record.bigquesscore != null" >
+                bigQuesScore = #{record.bigquesscore,jdbcType=INTEGER},
+            </if>
+            <if test="record.fillblankquesscore != null" >
+                fillBlankQuesScore = #{record.fillblankquesscore,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update papertemplet
+        set pt_id = #{record.ptId,jdbcType=INTEGER},
+            c_id = #{record.cId,jdbcType=INTEGER},
+            knowledge_ids = #{record.knowledgeIds,jdbcType=VARCHAR},
+            quescate_ids = #{record.quescateIds,jdbcType=VARCHAR},
+            templetName = #{record.templetname,jdbcType=VARCHAR},
+            difficultyLevel = #{record.difficultylevel,jdbcType=INTEGER},
+            score = #{record.score,jdbcType=INTEGER},
+            judgeQuesNum = #{record.judgequesnum,jdbcType=INTEGER},
+            selectQuesNum = #{record.selectquesnum,jdbcType=INTEGER},
+            bigQuesNum = #{record.bigquesnum,jdbcType=INTEGER},
+            fillBlankQuesNum = #{record.fillblankquesnum,jdbcType=INTEGER},
+            judgeQuesScore = #{record.judgequesscore,jdbcType=INTEGER},
+            selectQuesScore = #{record.selectquesscore,jdbcType=INTEGER},
+            bigQuesScore = #{record.bigquesscore,jdbcType=INTEGER},
+            fillBlankQuesScore = #{record.fillblankquesscore,jdbcType=INTEGER}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zr.pojo.Papertemplet" >
+        update papertemplet
+        <set >
+            <if test="cId != null" >
+                c_id = #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="knowledgeIds != null" >
+                knowledge_ids = #{knowledgeIds,jdbcType=VARCHAR},
+            </if>
+            <if test="quescateIds != null" >
+                quescate_ids = #{quescateIds,jdbcType=VARCHAR},
+            </if>
+            <if test="templetname != null" >
+                templetName = #{templetname,jdbcType=VARCHAR},
+            </if>
+            <if test="difficultylevel != null" >
+                difficultyLevel = #{difficultylevel,jdbcType=INTEGER},
+            </if>
+            <if test="score != null" >
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="judgequesnum != null" >
+                judgeQuesNum = #{judgequesnum,jdbcType=INTEGER},
+            </if>
+            <if test="selectquesnum != null" >
+                selectQuesNum = #{selectquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="bigquesnum != null" >
+                bigQuesNum = #{bigquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="fillblankquesnum != null" >
+                fillBlankQuesNum = #{fillblankquesnum,jdbcType=INTEGER},
+            </if>
+            <if test="judgequesscore != null" >
+                judgeQuesScore = #{judgequesscore,jdbcType=INTEGER},
+            </if>
+            <if test="selectquesscore != null" >
+                selectQuesScore = #{selectquesscore,jdbcType=INTEGER},
+            </if>
+            <if test="bigquesscore != null" >
+                bigQuesScore = #{bigquesscore,jdbcType=INTEGER},
+            </if>
+            <if test="fillblankquesscore != null" >
+                fillBlankQuesScore = #{fillblankquesscore,jdbcType=INTEGER},
+            </if>
+        </set>
+        where pt_id = #{ptId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.zr.pojo.Papertemplet" >
+        update papertemplet
+        set c_id = #{cId,jdbcType=INTEGER},
+            knowledge_ids = #{knowledgeIds,jdbcType=VARCHAR},
+            quescate_ids = #{quescateIds,jdbcType=VARCHAR},
+            templetName = #{templetname,jdbcType=VARCHAR},
+            difficultyLevel = #{difficultylevel,jdbcType=INTEGER},
+            score = #{score,jdbcType=INTEGER},
+            judgeQuesNum = #{judgequesnum,jdbcType=INTEGER},
+            selectQuesNum = #{selectquesnum,jdbcType=INTEGER},
+            bigQuesNum = #{bigquesnum,jdbcType=INTEGER},
+            fillBlankQuesNum = #{fillblankquesnum,jdbcType=INTEGER},
+            judgeQuesScore = #{judgequesscore,jdbcType=INTEGER},
+            selectQuesScore = #{selectquesscore,jdbcType=INTEGER},
+            bigQuesScore = #{bigquesscore,jdbcType=INTEGER},
+            fillBlankQuesScore = #{fillblankquesscore,jdbcType=INTEGER}
+        where pt_id = #{ptId,jdbcType=INTEGER}
+    </update>
+</mapper>
