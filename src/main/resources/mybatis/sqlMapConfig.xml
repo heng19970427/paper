@@ -7,6 +7,13 @@
         <package name="com.zr.pojo"/>
     </typeAliases>
 
+    <plugins>
+        <!-- com.github.pagehelper 为 PageHelper 类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!-- 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL 六种数据库-->
+            <property name="dialect" value="mysql"/>
+        </plugin>
+    </plugins>
     <!--配置mapper文件位置,可以在spring的xml文件中配置-->
     <!--<mappers>-->
     <!--<package name="com.zr.mapper"/>-->
