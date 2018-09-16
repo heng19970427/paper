@@ -47,5 +47,4 @@ public class WordGeneratorUtil {
         }
         return f;
     }
-
 }
