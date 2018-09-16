@@ -3,14 +3,14 @@ package com.zr.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuescateExample {
+public class KnowledgeExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public QuescateExample() {
+    public KnowledgeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -68,7 +68,7 @@ public class QuescateExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-08-26
+     * @date 2018-09-02
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -111,63 +111,63 @@ public class QuescateExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andQIdIsNull() {
-            addCriterion("q_id is null");
+        public Criteria andKIdIsNull() {
+            addCriterion("k_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andQIdIsNotNull() {
-            addCriterion("q_id is not null");
+        public Criteria andKIdIsNotNull() {
+            addCriterion("k_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andQIdEqualTo(Integer value) {
-            addCriterion("q_id =", value, "qId");
+        public Criteria andKIdEqualTo(Integer value) {
+            addCriterion("k_id =", value, "kId");
             return (Criteria) this;
         }
 
-        public Criteria andQIdNotEqualTo(Integer value) {
-            addCriterion("q_id <>", value, "qId");
+        public Criteria andKIdNotEqualTo(Integer value) {
+            addCriterion("k_id <>", value, "kId");
             return (Criteria) this;
         }
 
-        public Criteria andQIdGreaterThan(Integer value) {
-            addCriterion("q_id >", value, "qId");
+        public Criteria andKIdGreaterThan(Integer value) {
+            addCriterion("k_id >", value, "kId");
             return (Criteria) this;
         }
 
-        public Criteria andQIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("q_id >=", value, "qId");
+        public Criteria andKIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("k_id >=", value, "kId");
             return (Criteria) this;
         }
 
-        public Criteria andQIdLessThan(Integer value) {
-            addCriterion("q_id <", value, "qId");
+        public Criteria andKIdLessThan(Integer value) {
+            addCriterion("k_id <", value, "kId");
             return (Criteria) this;
         }
 
-        public Criteria andQIdLessThanOrEqualTo(Integer value) {
-            addCriterion("q_id <=", value, "qId");
+        public Criteria andKIdLessThanOrEqualTo(Integer value) {
+            addCriterion("k_id <=", value, "kId");
             return (Criteria) this;
         }
 
-        public Criteria andQIdIn(List<Integer> values) {
-            addCriterion("q_id in", values, "qId");
+        public Criteria andKIdIn(List<Integer> values) {
+            addCriterion("k_id in", values, "kId");
             return (Criteria) this;
         }
 
-        public Criteria andQIdNotIn(List<Integer> values) {
-            addCriterion("q_id not in", values, "qId");
+        public Criteria andKIdNotIn(List<Integer> values) {
+            addCriterion("k_id not in", values, "kId");
             return (Criteria) this;
         }
 
-        public Criteria andQIdBetween(Integer value1, Integer value2) {
-            addCriterion("q_id between", value1, value2, "qId");
+        public Criteria andKIdBetween(Integer value1, Integer value2) {
+            addCriterion("k_id between", value1, value2, "kId");
             return (Criteria) this;
         }
 
-        public Criteria andQIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("q_id not between", value1, value2, "qId");
+        public Criteria andKIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("k_id not between", value1, value2, "kId");
             return (Criteria) this;
         }
 
@@ -231,133 +231,73 @@ public class QuescateExample {
             return (Criteria) this;
         }
 
-        public Criteria andQcnameIsNull() {
-            addCriterion("qcName is null");
+        public Criteria andKnowledgenameIsNull() {
+            addCriterion("knowledgeName is null");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameIsNotNull() {
-            addCriterion("qcName is not null");
+        public Criteria andKnowledgenameIsNotNull() {
+            addCriterion("knowledgeName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameEqualTo(String value) {
-            addCriterion("qcName =", value, "qcname");
+        public Criteria andKnowledgenameEqualTo(String value) {
+            addCriterion("knowledgeName =", value, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameNotEqualTo(String value) {
-            addCriterion("qcName <>", value, "qcname");
+        public Criteria andKnowledgenameNotEqualTo(String value) {
+            addCriterion("knowledgeName <>", value, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameGreaterThan(String value) {
-            addCriterion("qcName >", value, "qcname");
+        public Criteria andKnowledgenameGreaterThan(String value) {
+            addCriterion("knowledgeName >", value, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameGreaterThanOrEqualTo(String value) {
-            addCriterion("qcName >=", value, "qcname");
+        public Criteria andKnowledgenameGreaterThanOrEqualTo(String value) {
+            addCriterion("knowledgeName >=", value, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameLessThan(String value) {
-            addCriterion("qcName <", value, "qcname");
+        public Criteria andKnowledgenameLessThan(String value) {
+            addCriterion("knowledgeName <", value, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameLessThanOrEqualTo(String value) {
-            addCriterion("qcName <=", value, "qcname");
+        public Criteria andKnowledgenameLessThanOrEqualTo(String value) {
+            addCriterion("knowledgeName <=", value, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameLike(String value) {
-            addCriterion("qcName like", value, "qcname");
+        public Criteria andKnowledgenameLike(String value) {
+            addCriterion("knowledgeName like", value, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameNotLike(String value) {
-            addCriterion("qcName not like", value, "qcname");
+        public Criteria andKnowledgenameNotLike(String value) {
+            addCriterion("knowledgeName not like", value, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameIn(List<String> values) {
-            addCriterion("qcName in", values, "qcname");
+        public Criteria andKnowledgenameIn(List<String> values) {
+            addCriterion("knowledgeName in", values, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameNotIn(List<String> values) {
-            addCriterion("qcName not in", values, "qcname");
+        public Criteria andKnowledgenameNotIn(List<String> values) {
+            addCriterion("knowledgeName not in", values, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameBetween(String value1, String value2) {
-            addCriterion("qcName between", value1, value2, "qcname");
+        public Criteria andKnowledgenameBetween(String value1, String value2) {
+            addCriterion("knowledgeName between", value1, value2, "knowledgename");
             return (Criteria) this;
         }
 
-        public Criteria andQcnameNotBetween(String value1, String value2) {
-            addCriterion("qcName not between", value1, value2, "qcname");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdIsNull() {
-            addCriterion("p_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdIsNotNull() {
-            addCriterion("p_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdEqualTo(Integer value) {
-            addCriterion("p_id =", value, "pId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdNotEqualTo(Integer value) {
-            addCriterion("p_id <>", value, "pId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdGreaterThan(Integer value) {
-            addCriterion("p_id >", value, "pId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("p_id >=", value, "pId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdLessThan(Integer value) {
-            addCriterion("p_id <", value, "pId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdLessThanOrEqualTo(Integer value) {
-            addCriterion("p_id <=", value, "pId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdIn(List<Integer> values) {
-            addCriterion("p_id in", values, "pId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdNotIn(List<Integer> values) {
-            addCriterion("p_id not in", values, "pId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdBetween(Integer value1, Integer value2) {
-            addCriterion("p_id between", value1, value2, "pId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("p_id not between", value1, value2, "pId");
+        public Criteria andKnowledgenameNotBetween(String value1, String value2) {
+            addCriterion("knowledgeName not between", value1, value2, "knowledgename");
             return (Criteria) this;
         }
     }
@@ -374,7 +314,7 @@ public class QuescateExample {
      * 
      * @author wcyong
      * 
-     * @date 2018-08-26
+     * @date 2018-09-02
      */
     public static class Criterion {
         private String condition;

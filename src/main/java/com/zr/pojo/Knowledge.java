@@ -1,17 +1,20 @@
 package com.zr.pojo;
 
+/**
+ * 
+ * 
+ * @author wcyong
+ * 
+ * @date 2018-09-02
+ */
 public class Knowledge {
-    int k_id;
-    Course course;
-    String knowledgeName;
+    private Integer kId;
 
-    public int getK_id() {
-        return k_id;
-    }
+    private Integer cId;
 
-    public void setK_id(int k_id) {
-        this.k_id = k_id;
-    }
+    private String knowledgename;
+
+    private Course course;
 
     public Course getCourse() {
         return course;
@@ -21,11 +24,27 @@ public class Knowledge {
         this.course = course;
     }
 
-    public String getKnowledgeName() {
-        return knowledgeName;
+    public Integer getkId() {
+        return kId;
     }
 
-    public void setKnowledgeName(String knowledgeName) {
-        this.knowledgeName = knowledgeName;
+    public void setkId(Integer kId) {
+        this.kId = kId;
+    }
+
+    public Integer getcId() {
+        return cId;
+    }
+
+    public void setcId(Integer cId) {
+        this.cId = cId;
+    }
+
+    public String getKnowledgename() {
+        return knowledgename;
+    }
+
+    public void setKnowledgename(String knowledgename) {
+        this.knowledgename = knowledgename == null ? null : knowledgename.trim();
     }
 }

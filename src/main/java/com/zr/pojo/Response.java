@@ -1,16 +1,23 @@
 package com.zr.pojo;
 
 public class Response {
-    private int code;
+    private boolean success;
     private String msg;
-    private String error;
 
-    public int getCode() {
-        return code;
+    public Response() {
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public Response(boolean success, String msg) {
+        this.success = success;
+        this.msg = msg;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     public String getMsg() {
@@ -20,14 +27,4 @@ public class Response {
     public void setMsg(String msg) {
         this.msg = msg;
     }
-
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
-
-
 }

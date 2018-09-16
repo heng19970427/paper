@@ -1,11 +1,22 @@
 package com.zr.pojo;
 
+/**
+ * 
+ * 
+ * @author wcyong
+ * 
+ * @date 2018-08-26
+ */
 public class Quescate {
-    private int q_id;
-    private ProbCate probCate;
-    private String qcName;
+    private Integer qId;
+
+    private Integer cId;
+
+    private String qcname;
+
+    private Integer pId;
+
     private Course course;
-    private int blankNum;
 
     public Course getCourse() {
         return course;
@@ -15,35 +26,35 @@ public class Quescate {
         this.course = course;
     }
 
-    public ProbCate getProbCate() {
-        return probCate;
+    public Integer getqId() {
+        return qId;
     }
 
-    public void setProbCate(ProbCate probCate) {
-        this.probCate = probCate;
+    public void setqId(Integer qId) {
+        this.qId = qId;
     }
 
-    public int getQ_id() {
-        return q_id;
+    public Integer getcId() {
+        return cId;
     }
 
-    public void setQ_id(int q_id) {
-        this.q_id = q_id;
+    public void setcId(Integer cId) {
+        this.cId = cId;
     }
 
-    public String getQcName() {
-        return qcName;
+    public String getQcname() {
+        return qcname;
     }
 
-    public void setQcName(String qcName) {
-        this.qcName = qcName;
+    public void setQcname(String qcname) {
+        this.qcname = qcname == null ? null : qcname.trim();
     }
 
-    public int getBlankNum() {
-        return blankNum;
+    public Integer getpId() {
+        return pId;
     }
 
-    public void setBlankNum(int blankNum) {
-        this.blankNum = blankNum;
+    public void setpId(Integer pId) {
+        this.pId = pId;
     }
 }

@@ -1,8 +1,8 @@
 package com.zr.pojo;
 
 public class ProbCate {
-    int p_id;
-    String category;
+    private int p_id;
+    private String category;
 
     public int getP_id() {
         return p_id;
