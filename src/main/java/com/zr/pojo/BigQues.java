@@ -1,50 +1,83 @@
 package com.zr.pojo;
 
-public class BigQues extends QuesQuery{
-    Integer b_id;
-    Course course;
-    Knowledge knowledge;
-    ProbCate probCate;
-    Quescate quesCate;
-    String title;
-    Integer difficultyLevel;
-    String answer;
-    Integer selectedNum;
-    String description;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
+/**
+ * @author wcyong
+ * 
+ * @date 2018-08-29
+ */
+public class Bigques {
+    private Integer bId;
 
-    public Course getCourse() {
-        return course;
+    private Integer kId;
+
+    private Integer cId;
+
+    private Integer pId;
+
+    @NotNull(message = "必须选择题目类型")
+    private Integer qcId;
+
+    @NotNull(message = "题目名称不能为空")
+    private String title;
+
+    private String option;
+
+    @NotNull(message = "难度系数不能为空")
+    @Min(value=1,message="难度系数不能小于{value}")
+    @Max(value=5,message="难度系数不能大于{value}")
+    private Integer difficultylevel;
+
+    @NotNull(message = "答案不能为空")
+    private String answer;
+
+    private Integer selectednum;
+
+    private String description;
+
+    public Integer getbId() {
+        return bId;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setbId(Integer bId) {
+        this.bId = bId;
     }
 
-    public Knowledge getKnowledge() {
-        return knowledge;
+    public Integer getkId() {
+        return kId;
     }
 
-    public void setKnowledge(Knowledge knowledge) {
-        this.knowledge = knowledge;
+    public void setkId(Integer kId) {
+        this.kId = kId;
     }
 
-    public ProbCate getProbCate() {
-        return probCate;
+    public Integer getcId() {
+        return cId;
     }
 
-    public void setProbCate(ProbCate probCate) {
-        this.probCate = probCate;
+    public void setcId(Integer cId) {
+        this.cId = cId;
     }
 
-
-    public Quescate getQuesCate() {
-        return quesCate;
+    public Integer getpId() {
+        return pId;
     }
 
-    public void setQuesCate(Quescate quesCate) {
-        this.quesCate = quesCate;
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
+
+    public Integer getQcId() {
+        return qcId;
+    }
+
+    public void setQcId(Integer qcId) {
+        this.qcId = qcId;
     }
 
     public String getTitle() {
@@ -52,45 +85,39 @@ public class BigQues extends QuesQuery{
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title == null ? null : title.trim();
     }
 
+    public String getOption() {
+        return option;
+    }
 
+    public void setOption(String option) {
+        this.option = option == null ? null : option.trim();
+    }
+
+    public Integer getDifficultylevel() {
+        return difficultylevel;
+    }
+
+    public void setDifficultylevel(Integer difficultylevel) {
+        this.difficultylevel = difficultylevel;
+    }
 
     public String getAnswer() {
         return answer;
     }
 
     public void setAnswer(String answer) {
-        this.answer = answer;
+        this.answer = answer == null ? null : answer.trim();
     }
 
-    public Integer getB_id() {
-        return b_id;
+    public Integer getSelectednum() {
+        return selectednum;
     }
 
-    public void setB_id(Integer b_id) {
-        this.b_id = b_id;
-    }
-
-    @Override
-    public Integer getDifficultyLevel() {
-        return difficultyLevel;
-    }
-
-    @Override
-    public void setDifficultyLevel(Integer difficultyLevel) {
-        this.difficultyLevel = difficultyLevel;
-    }
-
-    @Override
-    public Integer getSelectedNum() {
-        return selectedNum;
-    }
-
-    @Override
-    public void setSelectedNum(Integer selectedNum) {
-        this.selectedNum = selectedNum;
+    public void setSelectednum(Integer selectednum) {
+        this.selectednum = selectednum;
     }
 
     public String getDescription() {
@@ -98,22 +125,7 @@ public class BigQues extends QuesQuery{
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
     }
 
-    @Override
-    public String toString() {
-        return "BigQues{" +
-                "b_id=" + b_id +
-                ", course=" + course +
-                ", knowledge=" + knowledge +
-                ", probCate=" + probCate +
-                ", quesCate=" + quesCate +
-                ", title='" + title + '\'' +
-                ", difficultyLevel=" + difficultyLevel +
-                ", answer='" + answer + '\'' +
-                ", selectedNum=" + selectedNum +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }
