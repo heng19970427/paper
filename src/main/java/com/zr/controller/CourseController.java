@@ -1,18 +1,16 @@
 package com.zr.controller;
 
-import com.zr.pojo.Course;
-import com.zr.pojo.Knowledge;
-import com.zr.pojo.Quescate;
-import com.zr.service.BaseService;
+import com.zr.pojo.*;
 import com.zr.service.CourseService;
 import com.zr.service.KnowledgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("course")
 @Controller
@@ -21,36 +19,67 @@ public class CourseController {
     private CourseService courseService;
 
     @Autowired
-    private BaseService baseService;
-
-    @Autowired
     private KnowledgeService knowledgeService;
-    @RequestMapping("courseInfo")
-    public String courseInfo(Course course,Model model){
-        List<Course> courseList = courseService.queryAllCourse();
-        List<Quescate> quesCateList = baseService.queryQuesCateByCId(String.valueOf(course.getC_id()));
-        List<Knowledge> knowledgeList = knowledgeService.queryKnowledgeList(course.getC_id());
 
-        model.addAttribute("courseList",courseList);
-        model.addAttribute("quesCateSize",quesCateList.size());
-        model.addAttribute("KnowledgeSize",knowledgeList.size());
-        return "courseInfo";
+    @RequestMapping("update")
+    public Response update(@RequestBody Course course){
+        try {
+            courseService.updateCourse(course);
+            return new Response(true ,"更新成功");
+        }catch (Exception e){
+            return new Response(false,"更新失败");
+        }
+
+    }
+
+    @RequestMapping("findAll")
+    @ResponseBody
+    public List<Course> findAll(){
+        return courseService.queryAllCourse();
+    }
+
+    @RequestMapping("findOne")
+    @ResponseBody
+    public Course findOne(int id){
+        return courseService.findOne(id);
     }
 
     @RequestMapping("addCourse")
     @ResponseBody
-    public String addCourse(Course course){
-        courseService.addCourse(course);
-        return "OK";
+    public Response addCourse(@RequestBody Course course){
+        try {
+            courseService.addCourse(course);
+            return new Response(true,"更新成功");
+        }catch (Exception e){
+            return new Response(true,"更新失败");
+        }
     }
 
     @RequestMapping("deleteCourse")
     @ResponseBody
-    public String deleteCourse(int c_id){
-        courseService.deleteCourse(c_id);
+    public String deleteCourse(int[] ids){
+        courseService.deleteCourse(ids);
         return "OK";
     }
-    public void setCourseService(CourseService courseService) {
-        this.courseService = courseService;
+
+    /**
+     * 查询+分页
+     * @param page
+     * @param rows
+     * @return
+     */
+    @RequestMapping("/search")
+    @ResponseBody
+    public PageResult search(int page, int rows){
+        return courseService.findPage( page, rows);
     }
+
+    @RequestMapping("getCourseOptionList")
+    @ResponseBody
+    public List<Map> getCourseOptionList(){
+        List<Map> courseOptionList = courseService.getCourseOptionList();
+        return courseOptionList;
+    }
+
 }
+
