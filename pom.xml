@@ -19,11 +19,35 @@
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.miemiedev</groupId>
+      <artifactId>mybatis-paginator</artifactId>
+      <version>1.2.15</version>
+    </dependency>
     <!--单元测试包-->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.10</version>
+    </dependency>
+
+    <!-- spring security安全框架 -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>4.1.0.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>4.1.0.RELEASE</version>
     </dependency>
 
     <!--javaEE包-->
@@ -84,7 +108,14 @@
       <artifactId>spring-beans</artifactId>
       <version>4.2.4.RELEASE</version>
     </dependency>
-    <dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>4.2.4.RELEASE</version>
+      </dependency>
+
+
+      <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>4.2.4.RELEASE</version>
@@ -225,7 +256,7 @@
           <version>2.2</version>
           <configuration>
             <uriEncoding>UTF-8</uriEncoding>
-            <url>http://127.0.0.1:8080/manager/text</url>
+            <url>http://127.0.0.1:80/manager/text</url>
             <server>TomcatServer</server>
             <update>true</update>
             <!--<path>/MavenBuilder##version</path>-->

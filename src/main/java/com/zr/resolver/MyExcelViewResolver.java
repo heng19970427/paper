@@ -31,9 +31,9 @@ public class MyExcelViewResolver extends AbstractXlsView{
 
         for (int i = 0; i <quesCateList.size() ; i++) {
             //动态生成sheet
-            sheets[i]=book.createSheet(quesCateList.get(i).getQcName());
+            sheets[i]=book.createSheet(quesCateList.get(i).getQcname());
             //取出每个sheet表头内容
-            if(quesCateList.get(i).getProbCate().getP_id()==2){
+            if(quesCateList.get(i).getpId()==2){
                 BlankNum.add(i);
             }
         }
