@@ -45,7 +45,11 @@ public class PapertempletGroup {
     public void setKnowledgetempletList(List<Knowledgetemplet> knowledgetempletList) {
         this.knowledgetempletList = knowledgetempletList;
     }
-    public static Response dataValidate(List<Knowledgetemplet> knowledgetempletList,Papertemplet papertemplet){
+    public static Response dataValidate(PapertempletGroup papertempletGroup){
+
+        List<Knowledgetemplet> knowledgetempletList=papertempletGroup.getKnowledgetempletList();
+        Papertemplet papertemplet=papertempletGroup.getPapertemplet();
+
         //防止空指针
         if(papertemplet.getJudgequesnum()==null){
             papertemplet.setJudgequesnum(0);
@@ -90,6 +94,12 @@ public class PapertempletGroup {
         }
         if(totalScore!=papertemplet.getScore()){
             return new Response(false,"综合题数目与设定数目不相等");
+        }
+        if(papertemplet.getKnowledgeIds()==null){
+            return new Response(false,"创建失败,必须选择至少一个知识点!");
+        }
+        if(papertemplet.getQuescateIds()==null){
+            return new Response(false,"创建失败,必须选择试卷出现的题型!");
         }
         return new Response(true,"数据合格");
     }

@@ -8,18 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
 
 @RequestMapping("course")
-@Controller
+@RestController
 public class CourseController {
     @Autowired
     private CourseService courseService;
-
-    @Autowired
-    private KnowledgeService knowledgeService;
 
     @RequestMapping("update")
     public Response update(@RequestBody Course course){
@@ -33,19 +31,16 @@ public class CourseController {
     }
 
     @RequestMapping("findAll")
-    @ResponseBody
     public List<Course> findAll(){
         return courseService.queryAllCourse();
     }
 
     @RequestMapping("findOne")
-    @ResponseBody
     public Course findOne(int id){
         return courseService.findOne(id);
     }
 
     @RequestMapping("addCourse")
-    @ResponseBody
     public Response addCourse(@RequestBody Course course){
         try {
             courseService.addCourse(course);
@@ -56,7 +51,6 @@ public class CourseController {
     }
 
     @RequestMapping("deleteCourse")
-    @ResponseBody
     public String deleteCourse(int[] ids){
         courseService.deleteCourse(ids);
         return "OK";
@@ -69,13 +63,11 @@ public class CourseController {
      * @return
      */
     @RequestMapping("/search")
-    @ResponseBody
     public PageResult search(int page, int rows){
         return courseService.findPage( page, rows);
     }
 
     @RequestMapping("getCourseOptionList")
-    @ResponseBody
     public List<Map> getCourseOptionList(){
         List<Map> courseOptionList = courseService.getCourseOptionList();
         return courseOptionList;

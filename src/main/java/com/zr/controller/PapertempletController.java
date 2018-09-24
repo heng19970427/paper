@@ -62,7 +62,7 @@ public class PapertempletController {
 			Validator validator = vf.getValidator();
 			Set<ConstraintViolation<Papertemplet>> paperTempValidate = validator.validate(papertempletGroup.getPapertemplet());
 			int errorCount=paperTempValidate.size();
-			Response response = PapertempletGroup.dataValidate(papertempletGroup.getKnowledgetempletList(),papertempletGroup.getPapertemplet());
+			Response response = PapertempletGroup.dataValidate(papertempletGroup);
 			if(errorCount>0 || !response.isSuccess()){
 				for (ConstraintViolation<Papertemplet> constraintViolation : paperTempValidate) {
 					return new Response(false,constraintViolation.getMessage());
@@ -85,11 +85,22 @@ public class PapertempletController {
 	@RequestMapping("/update")
 	public Response update(@RequestBody PapertempletGroup papertempletGroup){
 		try {
+			ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
+			Validator validator = vf.getValidator();
+			Set<ConstraintViolation<Papertemplet>> paperTempValidate = validator.validate(papertempletGroup.getPapertemplet());
+			int errorCount=paperTempValidate.size();
+			Response response = PapertempletGroup.dataValidate(papertempletGroup);
+			if(errorCount>0 || !response.isSuccess()){
+				for (ConstraintViolation<Papertemplet> constraintViolation : paperTempValidate) {
+					return new Response(false,constraintViolation.getMessage());
+				}
+				return response;
+			}
 			papertempletService.update(papertempletGroup);
 			return new Response(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new Response(false, "修改失败");
+			return new Response(false, "修改失败，模板信息错误");
 		}
 	}	
 	

@@ -42,7 +42,7 @@ app.controller('papertempletController' ,function($scope,$controller   ,quescate
 					//重新查询 
 		        	$scope.reloadList();//重新加载
 				}else{
-					alert(response.message);
+					alert(response.msg);
 				}
 			}		
 		);				
@@ -127,7 +127,7 @@ app.controller('papertempletController' ,function($scope,$controller   ,quescate
     $scope.updatePaperTempSelect=function () {
 		papertempletService.updatePaperTempSelect($scope.papertempletGroup).success(
 			function (response) {
-                $scope.papertempletGroup=response;
+                    $scope.papertempletGroup=response;
             }
 		)
     }

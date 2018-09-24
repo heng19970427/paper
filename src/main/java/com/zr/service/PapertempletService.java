@@ -59,6 +59,8 @@ public class PapertempletService{
 	public void add(PapertempletGroup papertempletGroup) {
 		List<Knowledgetemplet> knowledgetempletList = papertempletGroup.getKnowledgetempletList();
 		Papertemplet papertemplet = papertempletGroup.getPapertemplet();
+		//通过查询知识点的课程id封装到试卷模板中
+		//knowledgetempletList.get(0).getkId();
 		papertempletMapper.insert(papertemplet);
 		for (Knowledgetemplet knowTemp:knowledgetempletList){
 			knowTemp.setPtId(papertemplet.getPtId());

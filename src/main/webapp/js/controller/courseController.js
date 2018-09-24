@@ -91,7 +91,7 @@ app.controller('courseController' ,function($scope,$controller,courseService,que
     }
 
     //题目类型下拉列表数据
-    $scope.quescateListSelect={};
+    $scope.quescateListSelect={data:[]};
     //课程编号
     $scope.quescate={pId:null,cId:null};
     $scope.getQuescateListSelect=function(cId){
@@ -104,7 +104,7 @@ app.controller('courseController' ,function($scope,$controller,courseService,que
     }
 
     //定义知识下拉列表数据
-    $scope.knowListSelect={};
+    $scope.knowListSelect={data:[]};
     $scope.knowledge={cId:null};
     $scope.getKnowledgeOption=function(cId){
         $scope.knowledge.cId=cId;
@@ -142,4 +142,27 @@ app.controller('courseController' ,function($scope,$controller,courseService,que
 		)
     }
 
+    //友好的提示
+	$scope.selectTotalScore=0;
+    $scope.judgeTotalScore=0;
+    $scope.fillBlankTotalScore=0;
+    $scope.bigTotalScore=0;
+    $scope.totalScore=0;
+
+    $scope.setSelectTotalScore=function (selectTotalScore) {
+        $scope.selectTotalScore=selectTotalScore;
+        $scope.totalScore=$scope.selectTotalScore+$scope.judgeTotalScore+$scope.fillBlankTotalScore+$scope.bigTotalScore;
+    }
+    $scope.setJudgeTotalScore=function (judgeTotalScore) {
+        $scope.judgeTotalScore=judgeTotalScore;
+        $scope.totalScore=$scope.selectTotalScore+$scope.judgeTotalScore+$scope.fillBlankTotalScore+$scope.bigTotalScore;
+    }
+    $scope.setFillBlankTotalScore=function (fillBlankTotalScore) {
+        $scope.fillBlankTotalScore=fillBlankTotalScore;
+        $scope.totalScore=$scope.selectTotalScore+$scope.judgeTotalScore+$scope.fillBlankTotalScore+$scope.bigTotalScore;
+    }
+    $scope.setBigTotalScore=function (bigTotalScore) {
+        $scope.bigTotalScore=bigTotalScore;
+        $scope.totalScore=$scope.selectTotalScore+$scope.judgeTotalScore+$scope.fillBlankTotalScore+$scope.bigTotalScore;
+    }
 });	

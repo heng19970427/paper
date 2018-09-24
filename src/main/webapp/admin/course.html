@@ -71,7 +71,7 @@
                         <td>{{course.courseName}}</td>
                         <td>
                             <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#template_editModal"
-                                    ng-click="findOne(course.c_id);getQuescateListSelect(course.c_id);getKnowledgeOption(course.c_id)">创建模板</button>
+                                    ng-click="findOne(course.c_id);getQuescateListSelect(course.c_id);getKnowledgeOption(course.c_id);papertempletGroup.papertemplet.cId=course.c_id">创建模板</button>
                         </td>
                         <td class="text-center">
                             <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
@@ -174,26 +174,34 @@
                         </div>
                         <div class="tab-pane fade" id="certificate">
                             <br>
-                            <table class="table table-bordered table-striped" >
+                            <table class="table table-bordered table-striped" style="text-align: center">
                                 <tr>
                                     <td>选择题分数</td>
-                                    <td><input class="form-control" placeholder="选择题分数" ng-change="knowScoreTotal()" ng-model="papertempletGroup.papertemplet.selectquesscore"></td>
+                                    <td><input class="form-control" placeholder="选择题分数" ng-change="setSelectTotalScore(papertempletGroup.papertemplet.selectquesscore*papertempletGroup.papertemplet.selectquesnum)"
+                                               ng-model="papertempletGroup.papertemplet.selectquesscore"></td>
+                                    <td><p style="color: #9f191f">{{selectTotalScore}}分</p></td>
                                 </tr>
                                 <tr>
                                     <td>填空题分数</td>
-                                    <td><input class="form-control" placeholder="填空题分数" ng-model="papertempletGroup.papertemplet.fillblankquesscore"></td>
+                                    <td><input class="form-control" placeholder="填空题分数" ng-change="setFillBlankTotalScore(papertempletGroup.papertemplet.fillblankquesnum*papertempletGroup.papertemplet.fillblankquesscore)"
+                                               ng-model="papertempletGroup.papertemplet.fillblankquesscore"></td>
+                                    <td><p style="color: #9f191f">{{fillBlankTotalScore}}分</p></td>
                                 </tr>
                                 <tr>
                                     <td>判断题分数</td>
-                                    <td><input class="form-control" placeholder="判断题分数" ng-model="papertempletGroup.papertemplet.judgequesscore"></td>
+                                    <td><input class="form-control" placeholder="判断题分数" ng-change="setJudgeTotalScore(papertempletGroup.papertemplet.judgequesscore*papertempletGroup.papertemplet.judgequesnum)"
+                                               ng-model="papertempletGroup.papertemplet.judgequesscore"></td>
+                                    <td><p style="color: #9f191f">{{judgeTotalScore}}分</p></td>
                                 </tr>
                                 <tr>
                                     <td>综合题分数</td>
-                                    <td><input class="form-control" placeholder="综合题分数" ng-model="papertempletGroup.papertemplet.bigquesscore"></td>
+                                    <td><input class="form-control" placeholder="综合题分数" ng-change="setBigTotalScore(papertempletGroup.papertemplet.bigquesscore*papertempletGroup.papertemplet.bigquesnum)"
+                                               ng-model="papertempletGroup.papertemplet.bigquesscore"></td>
+                                    <td><p style="color: #9f191f">{{bigTotalScore}}分</p></td>
                                 </tr>
                                 <tr>
                                     <td>总分</td>
-                                    <td><p style="color: #9f191f">{{}}</p></td>
+                                    <td colspan="2"><h5 style="color: #9f191f">{{totalScore}}分</h5></td>
                                 </tr>
                             </table>
                         </div>

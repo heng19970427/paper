@@ -38,9 +38,6 @@ public class CourseService {
         courseMapper.updateCourse(course);
     }
 
-    public void setCourseMapper(CourseMapper courseMapper) {
-        this.courseMapper = courseMapper;
-    }
 
     /**
      * 按分页查询
