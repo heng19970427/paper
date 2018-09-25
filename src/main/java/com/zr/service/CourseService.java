@@ -52,4 +52,8 @@ public class CourseService {
     public List<Map> getCourseOptionList() {
        return courseMapper.selectCourseOptionList();
     }
+
+    public int getCourseNum() {
+        return courseMapper.queryAllCourse().size();
+    }
 }

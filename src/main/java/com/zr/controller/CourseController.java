@@ -73,5 +73,10 @@ public class CourseController {
         return courseOptionList;
     }
 
+    @RequestMapping("getCourseNum")
+    public int getCourseNum(){
+        return courseService.getCourseNum();
+    }
+
 }
 
